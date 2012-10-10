@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html><head><link href="css/default.css" rel="stylesheet" type="text/css"><script src="js/jquery.min.js" type="text/javascript"></script><script src="js/page_effects.js" type="text/javascript"></script><title>couchbase-clj.client documentation</title></head><body><div id="header"><h1><a href="index.html">Couchbase-clj 0.1.0 API documentation</a></h1></div><div class="sidebar" id="namespaces"><h3><span>Namespaces</span></h3><ul><li class="current"><a href="couchbase-clj.client.html"><span>couchbase-clj.client</span></a></li><li><a href="couchbase-clj.client-builder.html"><span>couchbase-clj.client-builder</span></a></li><li><a href="couchbase-clj.config.html"><span>couchbase-clj.config</span></a></li><li><a href="couchbase-clj.future.html"><span>couchbase-clj.future</span></a></li><li><a href="couchbase-clj.query.html"><span>couchbase-clj.query</span></a></li><li><a href="couchbase-clj.util.html"><span>couchbase-clj.util</span></a></li></ul></div><div class="sidebar" id="vars"><h3>Public Vars</h3><ul><li><a href="couchbase-clj.client.html#var--%3ECouchbaseCljClient"><span>-&gt;CouchbaseCljClient</span></a></li><li><a href="couchbase-clj.client.html#var-add"><span>add</span></a></li><li><a href="couchbase-clj.client.html#var-add-json"><span>add-json</span></a></li><li><a href="couchbase-clj.client.html#var-append"><span>append</span></a></li><li><a href="couchbase-clj.client.html#var-async-add"><span>async-add</span></a></li><li><a href="couchbase-clj.client.html#var-async-add-json"><span>async-add-json</span></a></li><li><a href="couchbase-clj.client.html#var-async-append"><span>async-append</span></a></li><li><a href="couchbase-clj.client.html#var-async-dec"><span>async-dec</span></a></li><li><a href="couchbase-clj.client.html#var-async-delete"><span>async-delete</span></a></li><li><a href="couchbase-clj.client.html#var-async-get"><span>async-get</span></a></li><li><a href="couchbase-clj.client.html#var-async-get-cas"><span>async-get-cas</span></a></li><li><a href="couchbase-clj.client.html#var-async-get-lock"><span>async-get-lock</span></a></li><li><a href="couchbase-clj.client.html#var-async-get-multi"><span>async-get-multi</span></a></li><li><a href="couchbase-clj.client.html#var-async-get-multi-json"><span>async-get-multi-json</span></a></li><li><a href="couchbase-clj.client.html#var-async-get-touch"><span>async-get-touch</span></a></li><li><a href="couchbase-clj.client.html#var-async-get-view"><span>async-get-view</span></a></li><li><a href="couchbase-clj.client.html#var-async-get-views"><span>async-get-views</span></a></li><li><a href="couchbase-clj.client.html#var-async-inc"><span>async-inc</span></a></li><li><a href="couchbase-clj.client.html#var-async-prepend"><span>async-prepend</span></a></li><li><a href="couchbase-clj.client.html#var-async-query"><span>async-query</span></a></li><li><a href="couchbase-clj.client.html#var-async-replace"><span>async-replace</span></a></li><li><a href="couchbase-clj.client.html#var-async-replace-json"><span>async-replace-json</span></a></li><li><a href="couchbase-clj.client.html#var-async-set"><span>async-set</span></a></li><li><a href="couchbase-clj.client.html#var-async-set-cas"><span>async-set-cas</span></a></li><li><a href="couchbase-clj.client.html#var-async-set-cas-json"><span>async-set-cas-json</span></a></li><li><a href="couchbase-clj.client.html#var-async-set-json"><span>async-set-json</span></a></li><li><a href="couchbase-clj.client.html#var-async-touch"><span>async-touch</span></a></li><li><a href="couchbase-clj.client.html#var-async-unlock"><span>async-unlock</span></a></li><li><a href="couchbase-clj.client.html#var-cas-id"><span>cas-id</span></a></li><li><a href="couchbase-clj.client.html#var-cas-val"><span>cas-val</span></a></li><li><a href="couchbase-clj.client.html#var-cas-val-json"><span>cas-val-json</span></a></li><li><a href="couchbase-clj.client.html#var-create-client"><span>create-client</span></a></li><li><a href="couchbase-clj.client.html#var-daemon%3F"><span>daemon?</span></a></li><li><a href="couchbase-clj.client.html#var-dec"><span>dec</span></a></li><li><a href="couchbase-clj.client.html#var-defclient"><span>defclient</span></a></li><li><a href="couchbase-clj.client.html#var-delete"><span>delete</span></a></li><li><a href="couchbase-clj.client.html#var-flush"><span>flush</span></a></li><li><a href="couchbase-clj.client.html#var-get"><span>get</span></a></li><li><a href="couchbase-clj.client.html#var-get-auth-descriptor"><span>get-auth-descriptor</span></a></li><li><a href="couchbase-clj.client.html#var-get-available-servers"><span>get-available-servers</span></a></li><li><a href="couchbase-clj.client.html#var-get-cas"><span>get-cas</span></a></li><li><a href="couchbase-clj.client.html#var-get-cas-id"><span>get-cas-id</span></a></li><li><a href="couchbase-clj.client.html#var-get-client"><span>get-client</span></a></li><li><a href="couchbase-clj.client.html#var-get-client-status"><span>get-client-status</span></a></li><li><a href="couchbase-clj.client.html#var-get-factory"><span>get-factory</span></a></li><li><a href="couchbase-clj.client.html#var-get-failure-mode"><span>get-failure-mode</span></a></li><li><a href="couchbase-clj.client.html#var-get-hash-alg"><span>get-hash-alg</span></a></li><li><a href="couchbase-clj.client.html#var-get-json"><span>get-json</span></a></li><li><a href="couchbase-clj.client.html#var-get-lock"><span>get-lock</span></a></li><li><a href="couchbase-clj.client.html#var-get-max-reconnect-delay"><span>get-max-reconnect-delay</span></a></li><li><a href="couchbase-clj.client.html#var-get-min-reconnect-interval"><span>get-min-reconnect-interval</span></a></li><li><a href="couchbase-clj.client.html#var-get-multi"><span>get-multi</span></a></li><li><a href="couchbase-clj.client.html#var-get-multi-json"><span>get-multi-json</span></a></li><li><a href="couchbase-clj.client.html#var-get-node-locator"><span>get-node-locator</span></a></li><li><a href="couchbase-clj.client.html#var-get-op-queue-max-block-time"><span>get-op-queue-max-block-time</span></a></li><li><a href="couchbase-clj.client.html#var-get-op-timeout"><span>get-op-timeout</span></a></li><li><a href="couchbase-clj.client.html#var-get-read-buffer-size"><span>get-read-buffer-size</span></a></li><li><a href="couchbase-clj.client.html#var-get-sasl-mechanisms"><span>get-sasl-mechanisms</span></a></li><li><a href="couchbase-clj.client.html#var-get-timeout-exception-threshold"><span>get-timeout-exception-threshold</span></a></li><li><a href="couchbase-clj.client.html#var-get-touch"><span>get-touch</span></a></li><li><a href="couchbase-clj.client.html#var-get-transcoder"><span>get-transcoder</span></a></li><li><a href="couchbase-clj.client.html#var-get-unavailable-servers"><span>get-unavailable-servers</span></a></li><li><a href="couchbase-clj.client.html#var-get-versions"><span>get-versions</span></a></li><li><a href="couchbase-clj.client.html#var-get-view"><span>get-view</span></a></li><li><a href="couchbase-clj.client.html#var-get-views"><span>get-views</span></a></li><li><a href="couchbase-clj.client.html#var-inc"><span>inc</span></a></li><li><a href="couchbase-clj.client.html#var-lazy-query"><span>lazy-query</span></a></li><li><a href="couchbase-clj.client.html#var-locked%3F"><span>locked?</span></a></li><li><a href="couchbase-clj.client.html#var-persist-to"><span>persist-to</span></a></li><li><a href="couchbase-clj.client.html#var-prepend"><span>prepend</span></a></li><li><a href="couchbase-clj.client.html#var-query"><span>query</span></a></li><li><a href="couchbase-clj.client.html#var-replace"><span>replace</span></a></li><li><a href="couchbase-clj.client.html#var-replace-json"><span>replace-json</span></a></li><li><a href="couchbase-clj.client.html#var-replicate-to"><span>replicate-to</span></a></li><li><a href="couchbase-clj.client.html#var-set"><span>set</span></a></li><li><a href="couchbase-clj.client.html#var-set-cas"><span>set-cas</span></a></li><li><a href="couchbase-clj.client.html#var-set-cas-json"><span>set-cas-json</span></a></li><li><a href="couchbase-clj.client.html#var-set-json"><span>set-json</span></a></li><li><a href="couchbase-clj.client.html#var-should-optimize%3F"><span>should-optimize?</span></a></li><li><a href="couchbase-clj.client.html#var-shutdown"><span>shutdown</span></a></li><li><a href="couchbase-clj.client.html#var-touch"><span>touch</span></a></li><li><a href="couchbase-clj.client.html#var-unlock"><span>unlock</span></a></li><li><a href="couchbase-clj.client.html#var-use-nagle-algorithm%3F"><span>use-nagle-algorithm?</span></a></li><li><a href="couchbase-clj.client.html#var-view-doc"><span>view-doc</span></a></li><li><a href="couchbase-clj.client.html#var-view-doc-json"><span>view-doc-json</span></a></li><li><a href="couchbase-clj.client.html#var-view-id"><span>view-id</span></a></li><li><a href="couchbase-clj.client.html#var-view-key"><span>view-key</span></a></li><li><a href="couchbase-clj.client.html#var-view-val"><span>view-val</span></a></li><li><a href="couchbase-clj.client.html#var-view-val-json"><span>view-val-json</span></a></li><li><a href="couchbase-clj.client.html#var-wait-queue"><span>wait-queue</span></a></li></ul></div><div class="namespace-docs" id="content"><h2>couchbase-clj.client documentation</h2><pre class="doc"></pre><div class="public" id="var--%3ECouchbaseCljClient"><h3>-&gt;CouchbaseCljClient</h3><div class="usage"><code>(-&gt;CouchbaseCljClient cc cf)</code></div><pre class="doc">Positional factory function for class couchbase_clj.client.CouchbaseCljClient.
+</pre></div><div class="public" id="var-add"><h3>add</h3><div class="usage"><code>(add clj-client k v)</code><code>(add clj-client k v opts)</code></div><pre class="doc">Synchronously add a value with the specified key that does not already exist.
+If adding has succeeded then true is returned, otherwise false.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry, :transcoder, :timeout, and when :observe is set to true,
+:persist, and :replicate can be set.  
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.
+
+observe is the Boolean flag to enable persist and replicate options.
+
+persist is the keyword to specify Persist requirements to Master and more servers.
+Values can be :master, :one, :two, :three, :four.
+If persist is not specified, 
+@couchbase-clj.config/default-persist will be specified as the default value.
+
+replicate is the keyword to specify Replication requirements to zero or more replicas.
+Values can be :zero, :one, :two, :three.
+If other value or no argument is specified, 
+@couchbase-clj.config/default-replicate will be specified as a default value.</pre></div><div class="public" id="var-add-json"><h3>add-json</h3><div class="usage"><code>(add-json clj-client k v)</code><code>(add-json clj-client k v opts)</code></div><pre class="doc">Synchronously add a value that will be converted to JSON string
+with the specified key that does not already exist.
+If adding has succeeded then true is returned, otherwise false.
+Arguments are the same as add.</pre></div><div class="public" id="var-append"><h3>append</h3><div class="usage"><code>(append clj-client k v cas-id)</code><code>(append clj-client k v cas-id opts)</code></div><pre class="doc">Synchronously append a value to an existing key.
+If appending has succeeded then true is returned, otherwise false.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :transcoder and :timeout.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.</pre></div><div class="public" id="var-async-add"><h3>async-add</h3><div class="usage"><code>(async-add clj-client k v)</code><code>(async-add clj-client k v opts)</code></div><pre class="doc">Asynchronously add a value with the specified key that does not already exist.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry, :transcoder, and when :observe is set to true,
+persist, and :replicate can be set.  
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+observe is the Boolean flag to enable persist and replicate options.
+
+persist is the keyword to specify Persist requirements to Master and more servers.
+Values can be :master, :one, :two, :three, :four.
+If persist is not specified, 
+@couchbase-clj.config/default-persist will be specified as the default value.
+
+replicate is the keyword to specify Replication requirements to zero or more replicas.
+Values can be :zero, :one, :two, :three.
+If other value or no argument is specified, 
+@couchbase-clj.config/default-replicate will be specified as a default value.</pre></div><div class="public" id="var-async-add-json"><h3>async-add-json</h3><div class="usage"><code>(async-add-json clj-client k v)</code><code>(async-add-json clj-client k v opts)</code></div><pre class="doc">Asynchronously add a value that will be converted to JSON string
+with the specified key that does not already exist.
+Return value will be a CouchbaseCljOperationFuture object.
+Arguments are the same as async-add.</pre></div><div class="public" id="var-async-append"><h3>async-append</h3><div class="usage"><code>(async-append clj-client k v cas-id)</code><code>(async-append clj-client k v cas-id opts)</code></div><pre class="doc">Asynchronously append a value to an existing key.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional transcoder keyword in a map.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-dec"><h3>async-dec</h3><div class="usage"><code>(async-dec clj-client k)</code><code>(async-dec clj-client k opts)</code></div><pre class="doc">Asynchronously decrement the value of an existing key.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :offset.
+
+offset is the integer offset value to decrement. 
+If offset is not specified, 
+@couchbase-clj.config/default-dec-offset will be specified as the default value.</pre></div><div class="public" id="var-async-delete"><h3>async-delete</h3><div class="usage"><code>(async-delete clj-client k)</code><code>(async-delete clj-client k opts)</code></div><pre class="doc">Asynchronously delete the specified key.
+k is the key and can be a keyword, symbol or a string.
+Currently no options can be specified.</pre></div><div class="public" id="var-async-get"><h3>async-get</h3><div class="usage"><code>(async-get clj-client k)</code><code>(async-get clj-client k opts)</code></div><pre class="doc">Asynchronously get the value of the specified key.
+Return value is a CouchbaseCljGetFuture object.
+You can specify a optional transcoder keyword in a map.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-get-cas"><h3>async-get-cas</h3><div class="usage"><code>(async-get-cas clj-client k)</code><code>(async-get-cas clj-client k opts)</code></div><pre class="doc">Asynchronously get single key value with CAS value.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :transcoder.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-get-lock"><h3>async-get-lock</h3><div class="usage"><code>(async-get-lock clj-client k)</code><code>(async-get-lock clj-client k opts)</code></div><pre class="doc">Asynchronously get a lock.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry and :transcoder.
+
+expiry is the integer expiry time for key in seconds.
+If expiry is not specified, 
+@couchbase-clj.config/default-lock-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-get-multi"><h3>async-get-multi</h3><div class="usage"><code>(async-get-multi clj-client ks)</code><code>(async-get-multi clj-client ks opts)</code></div><pre class="doc">Asynchronously get multiple keys.
+ks is a sequential collection containing keys.
+Key can be a keyword, symbol or a string.
+You can specify a optional transcoder keyword in a map.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-get-multi-json"><h3>async-get-multi-json</h3><div class="usage"><code>(async-get-multi-json clj-client k)</code><code>(async-get-multi-json clj-client k opts)</code></div><pre class="doc">Asynchronously get multiple JSON string value converted to Clojure data of the specified key.
+You can specify a optional transcoder keyword in a map.
+Arguments are the same as get-multi.</pre></div><div class="public" id="var-async-get-touch"><h3>async-get-touch</h3><div class="usage"><code>(async-get-touch clj-client k)</code><code>(async-get-touch clj-client k opts)</code></div><pre class="doc">Asynchronously get a value and update the expiration time for a given key
+Return value is a CouchbaseCljOperationFuture object.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry and :transcoder.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-get-view"><h3>async-get-view</h3><div class="usage"><code>(async-get-view clj-client design-doc view-name)</code></div><pre class="doc">Asynchronously get a new view.
+Return value is a CouchbaseCljHttpFuture object.
+design-doc is a design document name.
+view-name is a view name within a design document.</pre></div><div class="public" id="var-async-get-views"><h3>async-get-views</h3><div class="usage"><code>(async-get-views clj-client design-doc)</code></div><pre class="doc">Asynchronously get a Vector of views.
+Return value is a CouchbaseCljHttpFuture object.
+design-doc is a design document name.</pre></div><div class="public" id="var-async-inc"><h3>async-inc</h3><div class="usage"><code>(async-inc clj-client k)</code><code>(async-inc clj-client k opts)</code></div><pre class="doc">Asynchronously increment the value of an existing key.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :offset.
+
+offset is the integer offset value to increment.
+If offset is not specified, 
+@couchbase-clj.config/default-inc-offset will be specified as the default value.</pre></div><div class="public" id="var-async-prepend"><h3>async-prepend</h3><div class="usage"><code>(async-prepend clj-client k v cas-id)</code><code>(async-prepend clj-client k v cas-id opts)</code></div><pre class="doc">Asynchronously prepend a value to an existing key.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional transcoder keyword in a map.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-query"><h3>async-query</h3><div class="usage"><code>(async-query clj-client view q)</code><code>(async-query clj-client design-doc view-name q)</code></div><pre class="doc">Asynchronously query a view within a design doc.
+Return value is a CouchbaseCljHttpFuture object.
+view is a View object.
+q is a CouchbaseCljQuery object or query parameters.
+design-doc is a design document name.
+view-name is a view name within a design document.</pre></div><div class="public" id="var-async-replace"><h3>async-replace</h3><div class="usage"><code>(async-replace clj-client k v)</code><code>(async-replace clj-client k v opts)</code></div><pre class="doc">Asynchronously update an existing key with a new value.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry, :transcoder, and when :observe is set to true,
+:persist, and :replicate can be set.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+observe is the Boolean flag to enable persist and replicate options.
+
+persist is the keyword to specify Persist requirements to Master and more servers.
+Values can be :master, :one, :two, :three, :four.
+If persist is not specified, 
+@couchbase-clj.config/default-persist will be specified as the default value.
+
+replicate is the keyword to specify Replication requirements to zero or more replicas.
+Values can be :zero, :one, :two, :three.
+If other value or no argument is specified, 
+@couchbase-clj.config/default-replicate will be specified as a default value.</pre></div><div class="public" id="var-async-replace-json"><h3>async-replace-json</h3><div class="usage"><code>(async-replace-json clj-client k v)</code><code>(async-replace-json clj-client k v opts)</code></div><pre class="doc">Asynchronously update an existing key with a new value
+that will be converted to a JSON string value.
+Arguments are the same as async-replace.</pre></div><div class="public" id="var-async-set"><h3>async-set</h3><div class="usage"><code>(async-set clj-client k v)</code><code>(async-set clj-client k v opts)</code></div><pre class="doc">Asynchronously store a value using the specified key.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry, :transcoder, and when :observe is set to true,
+:persist, and :replicate can be set.  
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+observe is the Boolean flag to enable persist and replicate options.
+
+persist is the keyword to specify Persist requirements to Master and more servers.
+Values can be :master, :one, :two, :three, :four.
+If persist is not specified, 
+@couchbase-clj.config/default-persist will be specified as the default value.
+
+replicate is the keyword to specify Replication requirements to zero or more replicas.
+Values can be :zero, :one, :two, :three.
+If other value or no argument is specified, 
+@couchbase-clj.config/default-replicate will be specified as a default value.</pre></div><div class="public" id="var-async-set-cas"><h3>async-set-cas</h3><div class="usage"><code>(async-set-cas clj-client k v cas-id)</code><code>(async-set-cas clj-client k v cas-id opts)</code></div><pre class="doc">Asynchronously compare the CAS ID and store a value using the specified key.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry and :transcoder.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-async-set-cas-json"><h3>async-set-cas-json</h3><div class="usage"><code>(async-set-cas-json clj-client k v cas-id)</code><code>(async-set-cas-json clj-client k v cas-id opts)</code></div><pre class="doc">Asynchronously compare the CAS ID and store a value that is converted to a JSON string
+using the specified key.
+Return value is a CouchbaseCljOperationFuture object.
+Arguments are the same as async-set-cas.</pre></div><div class="public" id="var-async-set-json"><h3>async-set-json</h3><div class="usage"><code>(async-set-json clj-client k v)</code><code>(async-set-json clj-client k v opts)</code></div><pre class="doc">Asynchronously store a value that will be converted to a JSON String
+using the specified key.
+Return value is a CouchbaseCljOperationFuture object.
+Arguments are the same as async-set.</pre></div><div class="public" id="var-async-touch"><h3>async-touch</h3><div class="usage"><code>(async-touch clj-client k)</code><code>(async-touch clj-client k opts)</code></div><pre class="doc">Asynchronously update the expiration time for a given key
+Return value is a CouchbaseCljOperationFuture object.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :expiry.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.</pre></div><div class="public" id="var-async-unlock"><h3>async-unlock</h3><div class="usage"><code>(async-unlock clj-client k cas-id)</code><code>(async-unlock clj-client k cas-id opts)</code></div><pre class="doc">Asynchronously unlock.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :transcoder.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-cas-id"><h3>cas-id</h3><div class="usage"><code>(cas-id c)</code></div><pre class="doc">Get the cas ID from the CASValue object.
+</pre></div><div class="public" id="var-cas-val"><h3>cas-val</h3><div class="usage"><code>(cas-val c)</code></div><pre class="doc">Get the value from the CASValue object
+</pre></div><div class="public" id="var-cas-val-json"><h3>cas-val-json</h3><div class="usage"><code>(cas-val-json c)</code></div><pre class="doc">Get the JSON string value converted to Clojure data from the CASValue object.
+nil is returned, if c is nil.</pre></div><div class="public" id="var-create-client"><h3>create-client</h3><div class="usage"><code>(create-client)</code><code>(create-client {:keys [client-builder factory], :as opts})</code></div><pre class="doc">Create and return a Couchbase client.
+If no parameters are specified, client will be created from default values specified in
+couchbase-clj.config.
+
+You can specify keywords parameters: bucket, username, password, uris, client-builder, factory and other opts.
+bucket is the bucket name. Default value is defined as @default-bucket and is &quot;default&quot;.
+username is the bucket username. Default value is defined as @default-username and is a empty string.
+Currently username is ignored.
+password is the bucket password. Default value is defined as @default-password and is a empty string.
+uris is a Collection of string uris, ex: [&quot;http://127.0.0.1:8091/pools&quot;]
+
+Other options can be specified for CouchbaseConnectionFactoryBuilder object creation.
+Internally, :failure-mode and :hash-alg must have a value and those default values are
+:redistribute and :native-hash respectively.
+All options for CouchbaseConnectionFactoryBuilder can be looked at couchbase-clj.client-builder/method-map Var.
+
+You can specify the client-builder keyword with the value of CouchbaseCljClientBuilder object
+which is created by couchbase-clj.client-builder/create-client-builder function.
+When doing this, bucket, username, password keywords should be specified.
+
+By using a factory keyword, you can pass a CouchbaseConnectionFactory object
+which is created by couchbase-clj.client-builder/create-factory function.
+
+ex:
+(create-client)
+
+(create-client {:bucket &quot;default&quot;
+                :username &quot;&quot;
+                :password &quot;&quot;
+                :uris [&quot;http://127.0.0.1:8091/pools&quot;]})
+
+(create-client {:auth-descriptor auth-descriptor-object
+                :daemon false
+                :failure-mode :redistribute
+                :hash-alg :native-hash
+                :max-reconnect-delay 30000
+                :min-reconnect-interval 1100
+                :obs-poll-interval 100
+                :obs-poll-max 400
+                :op-queue-max-block-time 10000
+                :op-timeout 10000
+                :read-buffer-size 16384
+                :should-optimize false
+                :timeout-exception-threshold 1000
+                :transcoder (SerializingTranscoder.)
+                :use-nagle-algorithm false})
+
+(create-client {:client-builder (create-client-builder {:hash-alg :native-hash
+                                                        :failure-mode :redistribute
+                                                        :max-reconnect-delay 30000})
+                :uris [(URI. &quot;http://127.0.0.1:8091/pools&quot;)]
+                :bucket &quot;default&quot;
+                :username &quot;&quot;
+                :password &quot;&quot;})
+
+(create-client {:factory couchbase-connection-factory-object})</pre></div><div class="public" id="var-daemon%3F"><h3>daemon?</h3><div class="usage"><code>(daemon? clj-client)</code></div><pre class="doc">Return true if IO thread should be a daemon thread, otherwise return false.
+</pre></div><div class="public" id="var-dec"><h3>dec</h3><div class="usage"><code>(dec clj-client k)</code><code>(dec clj-client k opts)</code></div><pre class="doc">Synchronously decrement the value of an existing key.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :offset, :default and :expiry.
+
+offset is the integer offset value to increment.
+If offset is not specified, 
+@couchbase-clj.config/default-inc-offset will be specified as the default value.
+
+default is the default value to increment if key does not exist.
+If default is not specified,
+@couchbase-clj.config/default-inc-default will be specified as the default value.
+
+expiry is the integer expiry time for key in seconds.
+If expiry is not specified, 
+@couchbase-clj.config/default-lock-expiry will be specified as the default value.</pre></div><div class="public" id="var-defclient"><h3>defclient</h3><div class="usage"><code>(defclient name)</code><code>(defclient name opts)</code></div><pre class="doc">A macro that defines a Var with Couchbase client specified by a name with or without options.
+See create-client function for detail.</pre></div><div class="public" id="var-delete"><h3>delete</h3><div class="usage"><code>(delete clj-client k)</code><code>(delete clj-client k opts)</code></div><pre class="doc">Synchronously delete the specified key.
+If deletion has succeeded then true is returned, otherwise false.
+Return value is a CouchbaseCljOperationFuture object.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :timeout.
+
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.</pre></div><div class="public" id="var-flush"><h3>flush</h3><div class="usage"><code>(flush clj-client)</code><code>(flush clj-client delay)</code></div><pre class="doc">Flush all cached and persisted data.
+If flushing has succeeded then true is returned, otherwise false.  
+delay is the period of time to delay, in seconds 
+To do flushing, you'll need to enable flush_all by using cbepctl command.
+ex: cbepctl localhost:11210 set flush_param flushall_enabled true
+Currently there is a bug in this command and it may not work as expected.</pre></div><div class="public" id="var-get"><h3>get</h3><div class="usage"><code>(get clj-client k)</code><code>(get clj-client k opts)</code></div><pre class="doc">Synchronously get the value of the specified key.
+You can specify a optional transcoder keyword in a map.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-get-auth-descriptor"><h3>get-auth-descriptor</h3><div class="usage"><code>(get-auth-descriptor clj-client)</code></div><pre class="doc">Get the auth descriptor.
+</pre></div><div class="public" id="var-get-available-servers"><h3>get-available-servers</h3><div class="usage"><code>(get-available-servers clj-client)</code></div><pre class="doc">Get the addresses of available servers in a Vector.
+</pre></div><div class="public" id="var-get-cas"><h3>get-cas</h3><div class="usage"><code>(get-cas clj-client k)</code><code>(get-cas clj-client k opts)</code></div><pre class="doc">Synchronously get single key value with CAS value.
+Return value is a CASValue object. 
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :transcoder.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-get-cas-id"><h3>get-cas-id</h3><div class="usage"><code>(get-cas-id clj-client k)</code><code>(get-cas-id clj-client k opts)</code></div><pre class="doc">Synchronously get a CAS ID.
+Integer CAS ID is returned.
+Arguments are the same as get-cas.</pre></div><div class="public" id="var-get-client"><h3>get-client</h3><div class="usage"><code>(get-client clj-client)</code></div><pre class="doc">Get the CouchbaseClient object.
+</pre></div><div class="public" id="var-get-client-status"><h3>get-client-status</h3><div class="usage"><code>(get-client-status clj-client)</code></div><pre class="doc">Get all of the stats from all of the connections in a Map.
+</pre></div><div class="public" id="var-get-factory"><h3>get-factory</h3><div class="usage"><code>(get-factory clj-client)</code></div><pre class="doc">Get the CouchbaseConnectionFactory object.
+</pre></div><div class="public" id="var-get-failure-mode"><h3>get-failure-mode</h3><div class="usage"><code>(get-failure-mode clj-client)</code></div><pre class="doc">Get the failure mode.
+</pre></div><div class="public" id="var-get-hash-alg"><h3>get-hash-alg</h3><div class="usage"><code>(get-hash-alg clj-client)</code></div><pre class="doc">Get the hashing algorithm.
+</pre></div><div class="public" id="var-get-json"><h3>get-json</h3><div class="usage"><code>(get-json clj-client k)</code><code>(get-json clj-client k opts)</code></div><pre class="doc">Synchronously get the JSON string value converted to Clojure data of the specified key.
+You can specify a optional transcoder keyword in a map.
+Arguments are the same as get.</pre></div><div class="public" id="var-get-lock"><h3>get-lock</h3><div class="usage"><code>(get-lock clj-client k)</code><code>(get-lock clj-client k opts)</code></div><pre class="doc">Synchronously get a lock.
+Return value is a CASValue object.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry and :transcoder.
+
+expiry is the integer expiry time for key in seconds.
+If expiry is not specified, 
+@couchbase-clj.config/default-lock-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-get-max-reconnect-delay"><h3>get-max-reconnect-delay</h3><div class="usage"><code>(get-max-reconnect-delay clj-client)</code></div><pre class="doc">Get the max reconnect delay.
+</pre></div><div class="public" id="var-get-min-reconnect-interval"><h3>get-min-reconnect-interval</h3><div class="usage"><code>(get-min-reconnect-interval clj-client)</code></div><pre class="doc">Get the min reconnect interval.
+</pre></div><div class="public" id="var-get-multi"><h3>get-multi</h3><div class="usage"><code>(get-multi clj-client ks)</code><code>(get-multi clj-client ks opts)</code></div><pre class="doc">Synchronously get multiple keys.
+ks is a sequential collection containing keys.
+Key can be a keyword, symbol or a string.
+You can specify a optional transcoder keyword in a map.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-get-multi-json"><h3>get-multi-json</h3><div class="usage"><code>(get-multi-json clj-client k)</code><code>(get-multi-json clj-client k opts)</code></div><pre class="doc">Synchronously get multiple JSON string value converted to Clojure data of the specified key.
+You can specify a optional transcoder keyword in a map.
+Arguments are the same as get-multi.</pre></div><div class="public" id="var-get-node-locator"><h3>get-node-locator</h3><div class="usage"><code>(get-node-locator clj-client)</code></div><pre class="doc">Get a read-only wrapper around the node locator wrapping this instance.
+</pre></div><div class="public" id="var-get-op-queue-max-block-time"><h3>get-op-queue-max-block-time</h3><div class="usage"><code>(get-op-queue-max-block-time clj-client)</code></div><pre class="doc">Get the op queue max block time.
+</pre></div><div class="public" id="var-get-op-timeout"><h3>get-op-timeout</h3><div class="usage"><code>(get-op-timeout clj-client)</code></div><pre class="doc">Get the operation timeout.
+This is used as a default timeout value for various sync and async client operations.</pre></div><div class="public" id="var-get-read-buffer-size"><h3>get-read-buffer-size</h3><div class="usage"><code>(get-read-buffer-size clj-client)</code></div><pre class="doc">Get the read buffer size.
+</pre></div><div class="public" id="var-get-sasl-mechanisms"><h3>get-sasl-mechanisms</h3><div class="usage"><code>(get-sasl-mechanisms clj-client)</code></div><pre class="doc">Get the list of sasl mechanisms in a Set.
+</pre></div><div class="public" id="var-get-timeout-exception-threshold"><h3>get-timeout-exception-threshold</h3><div class="usage"><code>(get-timeout-exception-threshold clj-client)</code></div><pre class="doc">Get the timeout exception threshold.
+</pre></div><div class="public" id="var-get-touch"><h3>get-touch</h3><div class="usage"><code>(get-touch clj-client k)</code><code>(get-touch clj-client k opts)</code></div><pre class="doc">Synchronously get a value and update the expiration time for a given key
+Return value is a CASValue object.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry and :transcoder.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-get-transcoder"><h3>get-transcoder</h3><div class="usage"><code>(get-transcoder clj-client)</code></div><pre class="doc">Get the default transcoder.
+</pre></div><div class="public" id="var-get-unavailable-servers"><h3>get-unavailable-servers</h3><div class="usage"><code>(get-unavailable-servers clj-client)</code></div><pre class="doc">Get the addresses of unavailable servers in a Vector.
+</pre></div><div class="public" id="var-get-versions"><h3>get-versions</h3><div class="usage"><code>(get-versions clj-client)</code></div><pre class="doc">Get versions of all of the connected servers in a Map.
+</pre></div><div class="public" id="var-get-view"><h3>get-view</h3><div class="usage"><code>(get-view clj-client design-doc view-name)</code></div><pre class="doc">Synchronously get a new view.
+Return value is a View object.
+design-doc is a design document name.
+view-name is a view name within a design document.</pre></div><div class="public" id="var-get-views"><h3>get-views</h3><div class="usage"><code>(get-views clj-client design-doc)</code></div><pre class="doc">Synchronously get a sequence of views.
+Return value is a Vector of views.
+design-doc is a design document name.</pre></div><div class="public" id="var-inc"><h3>inc</h3><div class="usage"><code>(inc clj-client k)</code><code>(inc clj-client k opts)</code></div><pre class="doc">Synchronously increment the value of an existing key.
+k is the key and can be a keyword, symbol or a string.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :offset, :default and :expiry.
+
+offset is the integer offset value to increment.
+If offset is not specified, 
+@couchbase-clj.config/default-inc-offset will be specified as the default value.
+
+default is the default value to increment if key does not exist.
+If default is not specified,
+@couchbase-clj.config/default-inc-default will be specified as the default value.
+
+expiry is the integer expiry time for key in seconds.
+If expiry is not specified, 
+@couchbase-clj.config/default-lock-expiry will be specified as the default value.</pre></div><div class="public" id="var-lazy-query"><h3>lazy-query</h3><div class="usage"><code>(lazy-query clj-client view q num)</code><code>(lazy-query clj-client design-doc view-name q num)</code></div><pre class="doc">Lazily query a view within a design doc.
+Response is a lazy sequence of a ViewResponse.
+view is a View object.
+q is a CouchbaseCljQuery object or query parameters.
+design-doc is a design document name.
+view-name is a view name within a design document.
+num is an integer to specify the amount of documents to get in each iterations.
+
+lazy-query can be used to query a large data lazily
+that it allows you to only get the amount of documents specified per iteration. 
+
+ex:
+(doseq [res (lazy-query clj-client view q num)]
+  (println (view-ids res)))
+=&gt; (:id1 :id2 :id3 :id4 :id5)
+
+(doseq [res (lazy-query clj-client view q num)]
+  (println (map view-id res)))
+=&gt; (:id1 :id2 :id3 :id4 :id5)</pre></div><div class="public" id="var-locked%3F"><h3>locked?</h3><div class="usage"><code>(locked? clj-client k)</code></div><pre class="doc">Retrun true if key is locked.
+k is the key and can be a keyword, symbol or a string.</pre></div><div class="public" id="var-persist-to"><h3>persist-to</h3><div class="usage"><code>(persist-to)</code><code>(persist-to persist)</code></div><pre class="doc">Get the PersistTo object by specifying a corresponding keyword argument.
+persist can be :master, :one, :two, :three, :four.
+If other value or no argument is specified, 
+@couchbase-clj.config/default-persist will be specified as the default value.
+
+MASTER or ONE requires Persist to the Master.
+TWO requires Persist to at least two nodes including the Master.
+THREE requires Persist to at least three nodes including the Master.
+FOUR requires Persist to at least four nodes including the Master.</pre></div><div class="public" id="var-prepend"><h3>prepend</h3><div class="usage"><code>(prepend clj-client k v cas-id)</code><code>(prepend clj-client k v cas-id opts)</code></div><pre class="doc">Synchronously prepend a value to an existing key.
+If prepending has succeeded then true is returned, otherwise false.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :transcoder and :timeout.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.</pre></div><div class="public" id="var-query"><h3>query</h3><div class="usage"><code>(query clj-client view q)</code><code>(query clj-client design-doc view-name q)</code></div><pre class="doc">Synchronously query a view within a design doc.
+Return value is a sequence of ViewRows.
+view is a View object.
+q is a CouchbaseCljQuery object or query parameters.
+design-doc is a design document name.
+view-name is a view name within a design document.</pre></div><div class="public" id="var-replace"><h3>replace</h3><div class="usage"><code>(replace clj-client k v)</code><code>(replace clj-client k v opts)</code></div><pre class="doc">Synchronously update an existing key with a new value.
+If replacing has succeeded then true is returned, otherwise false.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry, :transcoder, :timeout, and when :observe is set to true,
+:persist, and :replicate can be set.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.
+
+observe is the Boolean flag to enable persist and replicate options.
+
+persist is the keyword to specify Persist requirements to Master and more servers.
+Values can be :master, :one, :two, :three, :four.
+If persist is not specified, 
+@couchbase-clj.config/default-persist will be specified as the default value.
+
+replicate is the keyword to specify Replication requirements to zero or more replicas.
+Values can be :zero, :one, :two, :three.
+If other value or no argument is specified, 
+@couchbase-clj.config/default-replicate will be specified as a default value.</pre></div><div class="public" id="var-replace-json"><h3>replace-json</h3><div class="usage"><code>(replace-json clj-client k v)</code><code>(replace-json clj-client k v opts)</code></div><pre class="doc">Synchronously update an existing key with a new value
+that will be converted to a JSON string value.
+Arguments are the same as replace.</pre></div><div class="public" id="var-replicate-to"><h3>replicate-to</h3><div class="usage"><code>(replicate-to)</code><code>(replicate-to replicate)</code></div><pre class="doc">Get the ReplicateTo object by specifying a corresponding keyword argument.
+replicate can be :zero, :one, :two, :three
+If other value or no argument is specified, 
+@couchbase-clj.config/default-replicate will be specified as the default value.
+
+ZERO implies no requirements for the data to be replicated to the replicas.
+ONE implies requirements for the data to be replicated with at least one replica.
+TWO implies requirements for the data to be replicated with at least two replicas.
+THREE implies requirements for the data to be replicated with at least three replicas.</pre></div><div class="public" id="var-set"><h3>set</h3><div class="usage"><code>(set clj-client k v)</code><code>(set clj-client k v opts)</code></div><pre class="doc">Synchronously store a value using the specified key.
+If set has succeeded then true is returned, otherwise false.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry, :transcoder, :timeout, and when :observe is set to true,
+:persist, and :replicate can be set.  
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.
+
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.
+
+observe is the Boolean flag to enable persist and replicate options.
+
+persist is the keyword to specify Persist requirements to Master and more servers.
+Values can be :master, :one, :two, :three, :four.
+If persist is not specified, 
+@couchbase-clj.config/default-persist will be specified as the default value.
+
+replicate is the keyword to specify Replication requirements to zero or more replicas.
+Values can be :zero, :one, :two, :three.
+If other value or no argument is specified, 
+@couchbase-clj.config/default-replicate will be specified as a default value.</pre></div><div class="public" id="var-set-cas"><h3>set-cas</h3><div class="usage"><code>(set-cas clj-client k v cas-id)</code><code>(set-cas clj-client k v cas-id opts)</code></div><pre class="doc">Synchronously compare the CAS ID and store a value using the specified key.
+Keyword results that are originally defined in CASResponse
+and mapped by cas-response function will be returned.
+k is the key and can be a keyword, symbol or a string.
+v is the value to be stored.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry and :transcoder.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-set-cas-json"><h3>set-cas-json</h3><div class="usage"><code>(set-cas-json clj-client k v cas-id)</code><code>(set-cas-json clj-client k v cas-id opts)</code></div><pre class="doc">Synchronously compare the CAS ID and store a value that is converted to a JSON string
+using the specified key.
+Keyword results that are originally defined in CASResponse
+and mapped by cas-response function will be returned.
+Arguments are the same as set-cas.</pre></div><div class="public" id="var-set-json"><h3>set-json</h3><div class="usage"><code>(set-json clj-client k v)</code><code>(set-json clj-client k v opts)</code></div><pre class="doc">Synchronously store a value that will be converted to a JSON String
+using the specified key.
+If set has succeeded then true is returned, otherwise false.
+Arguments are the same as set.</pre></div><div class="public" id="var-should-optimize%3F"><h3>should-optimize?</h3><div class="usage"><code>(should-optimize? clj-client)</code></div><pre class="doc">Return if the performance should be optimized for the network, otherwise return false.
+</pre></div><div class="public" id="var-shutdown"><h3>shutdown</h3><div class="usage"><code>(shutdown clj-client)</code><code>(shutdown clj-client timeout)</code></div><pre class="doc">Shut down the client.
+If no argument is specified, client will shutdown immediately.
+If you specify a optional integer operation timeout value (in milliseconds),
+shutdown will occur gracefully.
+timeout is the max waiting time.</pre></div><div class="public" id="var-touch"><h3>touch</h3><div class="usage"><code>(touch clj-client k)</code><code>(touch clj-client k opts)</code></div><pre class="doc">Synchronously update the expiration time for a given key
+If update has succeeded then true is returned, otherwise false.
+You can specify a optional key value map as the opts argument.
+Optional keywords are :expiry and :timeout.
+
+expiry is the integer expiry time for key in seconds.
+Values larger than 30*24*60*60 seconds (30 days) are interpreted as absolute times from the epoch.
+By specifying -1, expiry can be disabled.
+If expiry is not specified, 
+@couchbase-clj.config/default-data-expiry will be specified as the default value.
+
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.</pre></div><div class="public" id="var-unlock"><h3>unlock</h3><div class="usage"><code>(unlock clj-client k cas-id)</code><code>(unlock clj-client k cas-id opts)</code></div><pre class="doc">Synchronously unlock.
+If unlocking has succeeded then true is returned, otherwise false.
+k is the key and can be a keyword, symbol or a string.
+cas-id is the integer unique value to identify key/value combination.
+You can specify a optional key value map as the opts argument.
+Optional keyword is :transcoder.
+
+transcoder is the Transcoder object to be used to serialize the value.
+If transcoder is not specified,
+SerializingTranscoder will be specified as the default transcoder.</pre></div><div class="public" id="var-use-nagle-algorithm%3F"><h3>use-nagle-algorithm?</h3><div class="usage"><code>(use-nagle-algorithm? clj-client)</code></div><pre class="doc">Return true if the Nagle algorithm is specified, otherwise return false.
+</pre></div><div class="public" id="var-view-doc"><h3>view-doc</h3><div class="usage"><code>(view-doc view)</code></div><pre class="doc">Get document of query results when include-docs is set to true.
+</pre></div><div class="public" id="var-view-doc-json"><h3>view-doc-json</h3><div class="usage"><code>(view-doc-json view)</code></div><pre class="doc">Get JSON string document of query results converted to Clojure data
+when include-docs is set to true.</pre></div><div class="public" id="var-view-id"><h3>view-id</h3><div class="usage"><code>(view-id view)</code></div><pre class="doc">Get the ID of query results from ViewRow object.
+</pre></div><div class="public" id="var-view-key"><h3>view-key</h3><div class="usage"><code>(view-key view)</code></div><pre class="doc">Get the key of query results from ViewRow object.
+</pre></div><div class="public" id="var-view-val"><h3>view-val</h3><div class="usage"><code>(view-val view)</code></div><pre class="doc">Get the value of query results from ViewRow object.
+</pre></div><div class="public" id="var-view-val-json"><h3>view-val-json</h3><div class="usage"><code>(view-val-json view)</code></div><pre class="doc">Get the JSON string value of query results from ViewRow object,
+Converted to Clojure data.</pre></div><div class="public" id="var-wait-queue"><h3>wait-queue</h3><div class="usage"><code>(wait-queue clj-client)</code><code>(wait-queue clj-client timeout)</code></div><pre class="doc">Synchronously wait for the queues to die down.
+Return true if the queues have died down, otherwise false.
+You can specifiy a optional operation timeout value.
+timeout is the integer operation timeout value in milliseconds.
+If timeout is not specified, the default value will be the value
+set by create-client function.
+It can be retrived by get-op-timeout function.</pre></div></div></body></html>

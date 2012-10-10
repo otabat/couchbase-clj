@@ -1,0 +1,1 @@
+(ns couchbase-clj.test.config)
