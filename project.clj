@@ -9,5 +9,4 @@
                  [spy/spymemcached "2.8.7"]]
   :plugins [[lein-swank "1.4.4"]
             [codox "0.6.1"]]
-  :repositories {"couchbase" {:url "http://files.couchbase.com/maven2"}}
-  :codox {:exclude [my.private.ns another.private.ns]})
+  :repositories {"couchbase" {:url "http://files.couchbase.com/maven2"}})
