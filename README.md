@@ -19,7 +19,7 @@ Add the following dependency to your Leiningen `project.clj` file:
 
 ## Documentation
 ---
-[API docs](http://otaba.github.com/couchbase-clj)
+[API docs](http://otabat.github.com/couchbase-clj)
 
 ## Basic Usage
 ---
