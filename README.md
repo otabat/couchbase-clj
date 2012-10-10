@@ -4,7 +4,7 @@ A Clojure client for Couchbase Server 2.0, built on top of [couchbase-java-clien
 
 ---
 Couchbase Server 2.0 is the next major version of Couchbase Server, currently in beta release. 
-It has a official Java client library that uses spymemcached internally and couchbase-clj is built on top of it.
+It has an official Java client library that uses spymemcached internally and couchbase-clj is built on top of it.
 
 This library provides a thin layer of Clojure that simplifies the compilicated Java interface.
 
@@ -50,7 +50,7 @@ To create the client connection, specify the bucket name, password and the seque
     ;; Shutdown the client
     ;; To avoid the client creation overhead, you don't have to do this per operation.
     ;; In general, one client per application is enough.
-    (shutdown client)
+    (c/shutdown client)
     
 ### Write
 #### Sync write
@@ -249,7 +249,7 @@ To create the client connection, specify the bucket name, password and the seque
     (c/cas-id (c/get-cas client :key1))
     => 164987457502467 
     
-    ;; Combines above two CAS operations.
+    ;; Get CAS ID in one command.
     (c/get-cas-id client :key1)
     => 164987457502467
     
