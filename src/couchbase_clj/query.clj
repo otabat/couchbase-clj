@@ -197,21 +197,3 @@
                    :on-error :continue})"
   [name m]
   `(def ~name (create-query ~m)))
-
-;(defquery query {:include-docs true
-;                 :desc false
-;                 :startkey-doc-id :doc1
-;                 :endkey-doc-id :doc2
-;                 :group false
-;                 :group-level 1
-;                 :inclusive-end false
-;                 :key :key1
-;                 :limit 100
-;                 :range [:start-key :end-key]
-;                 :range-start :start-key2
-;                 :range-end :end-key2
-;                 :reduce false
-;                 :skip 1
-;                 :stale false
-;                 :update-seq false
-;                 :on-error :continue})

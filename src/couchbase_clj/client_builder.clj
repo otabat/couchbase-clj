@@ -4,10 +4,6 @@
            [java.util.concurrent TimeUnit]
            [net.spy.memcached FailureMode]
            [net.spy.memcached DefaultHashAlgorithm]
-           [net.spy.memcached.auth AuthDescriptor]
-           [net.spy.memcached.auth PlainCallbackHandler]
-           [net.spy.memcached.transcoders LongTranscoder]
-           [com.couchbase.client CouchbaseClient]
            [com.couchbase.client CouchbaseConnectionFactoryBuilder])
   (:use [couchbase-clj.config]))
 
@@ -237,21 +233,3 @@
                      :bucket bkt
                      :username user
                      :password pass})))
-
-;(def ^:private cfb
-;  (build {:auth-descriptor (AuthDescriptor. (into-array [ "plain" ])
-;                                            (PlainCallbackHandler. "" ""))
-;          :daemon true
-;          :failure-mode :retry
-;          :hash-alg :crc-hash
-;          :max-reconnect-delay 500
-;          :min-reconnect-interval 2000
-;          :obs-poll-interval 1000
-;          :obs-poll-max 30
-;          :op-queue-max-block-time 20000
-;          :op-timeout 20000
-;          :read-buffer-size 17000
-;          :should-optimize true
-;          :timeout-exception-threshold 33333
-;          :transcoder (LongTranscoder.)
-;          :use-nagle-algorithm true}))

@@ -3,17 +3,13 @@
            [java.util Collection]
            [java.util.concurrent TimeUnit]
            [java.util.concurrent Future]
-           [net.spy.memcached MemcachedClient]
            [net.spy.memcached CASValue]
            [net.spy.memcached.internal GetFuture]
            [net.spy.memcached.internal BulkGetFuture]
            [net.spy.memcached.internal OperationFuture]
            [net.spy.memcached.transcoders Transcoder]
-           [net.spy.memcached.transcoders LongTranscoder]
-           [net.spy.memcached.transcoders SerializingTranscoder]
            [net.spy.memcached PersistTo]
            [net.spy.memcached ReplicateTo]
-           [net.spy.memcached ConnectionObserver]
            [com.couchbase.client CouchbaseClient]
            [com.couchbase.client CouchbaseConnectionFactory]
            [com.couchbase.client.internal HttpFuture]
@@ -1374,39 +1370,3 @@
      `(def ~name (create-client)))
   ([name opts]
      `(def ~name (create-client ~opts))))
-
-;; For development
-;(defclient client {:bucket "default"
-;                   :username "default"
-;                   :pass ""
-;                   :uris ["http://127.0.0.1:8091/pools"]})
-;(defclient client {:bucket "default"
-;                   :username "default"
-;                   :password ""
-;                   :uris ["http://127.0.0.1:8091/pools"]
-;                   ;:op-timeout 10000
-;                   :op-timeout 10000
-;                   ;:min-reconnect-interval 4000
-;                   })
-;(defclient client2 {:bucket "default"
-;                   :username "default"
-;                   :password ""
-;                   :uris ["http://127.0.0.1:8091/pools"]
-;                   :op-timeout 1
-;                   })
-
-
-;(def ^:private lt (LongTranscoder.))
-;(cbq/defquery q {
-;                      :limit 10
-;                      :include-docs true
-;                    })
-
-;(def lazy-seq-query (lazy-query  clj-client (get-view clj-client "dev_doc_test" "view_test") q 50))
-;(def seq-query (seq (query clj-client (get-view clj-client "doc_test" "view_test") q)))
-;(def seq-query (query clj-client (get-view clj-client "doc_test" "view_test") q))
-
-;(defn insert-json-data
-;  [n]
-;  (doseq [i (range 1 (clojure.core/inc n))]
-;    (add-json clj-client (str "json-" i) {:a i})))
