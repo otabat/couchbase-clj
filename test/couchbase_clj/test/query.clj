@@ -43,8 +43,8 @@
   (testing "Set endkey-doc-id option to a query."
     (let [q1 (cbq/create-query {:endkey-doc-id :doc1})
           q2 (cbq/create-query {:endkey-doc-id "doc2"})]
-      (is (= (cbq/str q1) "?endkey_docid=\"doc1\""))
-      (is (= (cbq/str q2) "?endkey_docid=\"doc2\"")))))
+      (is (= (cbq/str q1) "?endkey_docid=%22doc1%22"))
+      (is (= (cbq/str q2) "?endkey_docid=%22doc2%22")))))
 
 (deftest set-group-test
   (testing "Set group option to a query."
@@ -69,8 +69,8 @@
   (testing "Set key option to a query."
     (let [q1 (cbq/create-query {:key :key1})
           q2 (cbq/create-query {:key "key2"})]
-      (is (= (cbq/str q1) "?key=\"key1\""))
-      (is (= (cbq/str q2) "?key=\"key2\"")))))
+      (is (= (cbq/str q1) "?key=%22key1%22"))
+      (is (= (cbq/str q2) "?key=%22key2%22")))))
 
 (deftest set-limit-test
   (testing "Set limit option to a query."
@@ -81,22 +81,22 @@
   (testing "Set range option to a query."
     (let [q1 (cbq/create-query {:range [:doc1 :doc2]})
           q2 (cbq/create-query {:range ["doc3" "doc4"]})]
-      (is (= (cbq/str q1) "?startkey=\"doc1\"&endkey=\"doc2\""))
-      (is (= (cbq/str q2) "?startkey=\"doc3\"&endkey=\"doc4\"")))))
+      (is (= (cbq/str q1) "?startkey=%22doc1%22&endkey=%22doc2%22"))
+      (is (= (cbq/str q2) "?startkey=%22doc3%22&endkey=%22doc4%22")))))
 
 (deftest set-range-start-test
   (testing "Set range-start option to a query."
     (let [q1 (cbq/create-query {:range-start :doc1})
           q2 (cbq/create-query {:range-start "doc2"})]
-      (is (= (cbq/str q1) "?startkey=\"doc1\""))
-      (is (= (cbq/str q2) "?startkey=\"doc2\"")))))
+      (is (= (cbq/str q1) "?startkey=%22doc1%22"))
+      (is (= (cbq/str q2) "?startkey=%22doc2%22")))))
 
 (deftest set-range-end-test
   (testing "Set range-end to a query."
     (let [q1 (cbq/create-query {:range-end :doc1})
           q2 (cbq/create-query {:range-end "doc2"})]
-      (is (= (cbq/str q1) "?endkey=\"doc1\""))
-      (is (= (cbq/str q2) "?endkey=\"doc2\"")))))
+      (is (= (cbq/str q1) "?endkey=%22doc1%22"))
+      (is (= (cbq/str q2) "?endkey=%22doc2%22")))))
 
 (deftest set-reduce-test
   (testing "Set reduce option to a query."
@@ -128,13 +128,6 @@
       (is (= (cbq/str q5) "?stale=ok"))
       (is (= (cbq/str q6) "?stale=false"))
       (is (= (cbq/str q7) "?stale=update_after")))))
-
-(deftest set-update-seq-test
-  (testing "Set update-seq option to a query."
-    (let [q1 (cbq/create-query {:update-seq true})
-          q2 (cbq/create-query {:update-seq false})]
-      (is (= (cbq/str q1) "?update_seq=true"))
-      (is (= (cbq/str q2) "?update_seq=false")))))
 
 (deftest set-on-error-test
   (testing "Set on-error option to a query."
@@ -182,15 +175,14 @@
                                 :reduce false
                                 :skip 1
                                 :stale false
-                                :update-seq false
                                 :on-error :continue})]
       (is (= (.toString (cbq/get-query q1)) "?limit=1"))
       (is (= (.toString (cbq/get-query q2))
-             (str "?limit=100&endkey_docid=\"doc2\"&group_level=1"
-                  "&startkey=\"start-key2\"&skip=1&descending=false"
+             (str "?limit=100&endkey_docid=%22doc2%22&group_level=1"
+                  "&startkey=%22start-key2%22&skip=1&descending=false"
                   "&reduce=false&inclusive_end=false&on_error=continue"
-                  "&update_seq=false&endkey=\"end-key2\"&group=false&"
-                  "stale=false&key=\"key1\"&startkey_docid=doc1"))))))
+                  "&endkey=%22end-key2%22&group=false&stale=false"
+                  "&key=%22key1%22&startkey_docid=doc1"))))))
 
 (deftest defquery
   (testing "Creation of a query and binding to a Var."
@@ -210,12 +202,11 @@
                       :reduce false
                       :skip 1
                       :stale false
-                      :update-seq false
                       :on-error :continue})
     (is (= (.toString (cbq/get-query q1)) "?limit=1"))
     (is (= (.toString (cbq/get-query q2))
-           (str "?limit=100&endkey_docid=\"doc2\"&group_level=1"
-                "&startkey=\"start-key2\"&skip=1&descending=false"
+           (str "?limit=100&endkey_docid=%22doc2%22&group_level=1"
+                "&startkey=%22start-key2%22&skip=1&descending=false"
                 "&reduce=false&inclusive_end=false&on_error=continue"
-                "&update_seq=false&endkey=\"end-key2\"&group=false&"
-                "stale=false&key=\"key1\"&startkey_docid=doc1")))))
+                "&endkey=%22end-key2%22&group=false&"
+                "stale=false&key=%22key1%22&startkey_docid=doc1")))))

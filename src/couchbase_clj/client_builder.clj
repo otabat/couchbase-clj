@@ -60,13 +60,13 @@
     "Set maximum number of milliseconds to wait between reconnect attempts.
   Default value is 30000.
   You can set this value lower when there is intermittent and frequent connection failures.")
-  (set-min-reconnect-interval [clj-client-builder interval]
-    "Set the default minimum reconnect interval in millisecs.
-  Default values is 1100
-  This value means that if a reconnect is needed,
-  it won't try to reconnect more frequently than default value.
-  The internal connections take up to 500ms per request.
-  You can set this to higher to try reconnecting less frequently.")
+  ;(set-min-reconnect-interval [clj-client-builder interval]
+  ;  "Set the default minimum reconnect interval in millisecs.
+  ;Default values is 1100
+  ;This value means that if a reconnect is needed,
+  ;it won't try to reconnect more frequently than default value.
+  ;The internal connections take up to 500ms per request.
+  ;You can set this to higher to try reconnecting less frequently.")
   (set-obs-poll-interval [clj-client-builder interval]
     "Set the polling interval for Observe operations.
   Default value is 100.
@@ -123,8 +123,8 @@
     (.setHashAlg cfb (hash-alg k)))
   (set-max-reconnect-delay [clj-client-builder delay]
     (.setMaxReconnectDelay cfb delay))
-  (set-min-reconnect-interval [clj-client-builder interval]
-    (.setReconnectThresholdTime cfb interval TimeUnit/MILLISECONDS))
+  ;(set-min-reconnect-interval [clj-client-builder interval]
+  ;  (.setReconnectThresholdTime cfb interval TimeUnit/MILLISECONDS))
   (set-obs-poll-interval [clj-client-builder interval]
     (.setObsPollInterval cfb interval))
   (set-obs-poll-max [clj-client-builder poll]
@@ -154,7 +154,7 @@
    ;; TODO: Observers disabled for now
    ;:initial-observers set-initial-observers
    :max-reconnect-delay set-max-reconnect-delay
-   :min-reconnect-interval set-min-reconnect-interval
+   ;:min-reconnect-interval set-min-reconnect-interval
    :obs-poll-interval set-obs-poll-interval
    :obs-poll-max set-obs-poll-max
    :op-queue-max-block-time set-op-queue-max-block-time

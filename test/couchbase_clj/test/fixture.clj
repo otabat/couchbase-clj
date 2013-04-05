@@ -78,30 +78,30 @@
                             :password bucket-password
                             :uris ["http://127.0.0.1:8091/pools"]}))
 
-(defn set-flush-all
-  [enabled]
-  (let [cmd (format "cbepctl %s:%s set flush_param flushall_enabled %s"
-                    host op-port enabled)]
-    (exec-cmd cmd)))
-
-(defn enable-flushing
-  []
-  (set-flush-all true))
-
-(defn disable-flushing
-  []
-  (set-flush-all false))
-
-(defn flush
-  []
-  (enable-flushing)
-  (cb-client/flush (get-client))
-  (disable-flushing))
-
-(defn flush-data
-  [f]
-  (flush)
-  (f))
+;(defn set-flush-all
+;  [enabled]
+;  (let [cmd (format "cbepctl %s:%s set flush_param flushall_enabled %s"
+;                    host op-port enabled)]
+;    (exec-cmd cmd)))
+;
+;(defn enable-flushing
+;  []
+;  (set-flush-all true))
+;
+;(defn disable-flushing
+;  []
+;  (set-flush-all false))
+;
+;(defn flush
+;  []
+;  (enable-flushing)
+;  (cb-client/flush (get-client))
+;  (disable-flushing))
+;
+;(defn flush-data
+;  [f]
+;  (flush)
+;  (f))
 
 (defn setup-bucket
   [f]

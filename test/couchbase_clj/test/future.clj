@@ -12,7 +12,8 @@
             [couchbase-clj.test.fixture :as tf])
   (:use [clojure.test]))
 
-(use-fixtures :once tf/setup-client tf/flush-data)
+;(use-fixtures :once tf/setup-client tf/flush-data)
+(use-fixtures :once tf/setup-client)
 
 (deftest cas-response-test
   (testing "Get the CASResponse converted to a Clojure keyword."

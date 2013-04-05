@@ -57,8 +57,6 @@
 
     :update-after or other value then the stale will be update_after. (default value)
     Index will be updated after results are returned.")
-  (set-update-seq [clj-query b]
-    "Set true then results will include an update_seq value indicating which sequence id of the database the view reflects.")
   (set-on-error [clj-query oe]
     "Set the option to decide when an error occurs.
   When oe is equal to:
@@ -104,7 +102,6 @@
   (set-reduce [clj-query b] (.setReduce q b))
   (set-skip [clj-query docs-to-skip] (.setSkip q docs-to-skip))
   (set-stale [clj-query stl] (.setStale q (stale stl)))
-  (set-update-seq [clj-query b] (.setUpdateSeq q b))
   (set-on-error [clj-query oe] (.setOnError q (on-error oe)))
   (assoc [clj-query m]
     (create-query (merge opts m)))
@@ -131,7 +128,6 @@
    :reduce set-reduce
    :skip set-skip
    :stale set-stale
-   :update-seq set-update-seq
    :on-error set-on-error})
 
 (defn- dispatch
@@ -165,7 +161,6 @@
                  :reduce false
                  :skip 1
                  :stale false
-                 :update-seq false
                  :on-error :continue})"
   [m]
   (let [query (->CouchbaseCljQuery (Query.) m)]
@@ -193,7 +188,6 @@
                    :reduce false
                    :skip 1
                    :stale false
-                   :update-seq false
                    :on-error :continue})"
   [name m]
   `(def ~name (create-query ~m)))

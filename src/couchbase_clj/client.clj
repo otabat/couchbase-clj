@@ -134,7 +134,9 @@
   (get-failure-mode [clj-client] "Get the failure mode.")
   (get-hash-alg [clj-client] "Get the hashing algorithm.")
   (get-max-reconnect-delay [clj-client] "Get the max reconnect delay.")
-  (get-min-reconnect-interval [clj-client] "Get the min reconnect interval.")
+
+  ;; TODO: Not working
+  ;(get-min-reconnect-interval [clj-client] "Get the min reconnect interval.")
   ;; TODO: APIs not provided?
   ;(get-obs-poll-interval [clj-client])
   ;(get-obs-poll-max [clj-client])
@@ -823,14 +825,16 @@
   Return value is a View object.
   design-doc is a design document name.
   view-name is a view name within a design document.")
-  (async-get-views [clj-client design-doc]
-    "Asynchronously get a Vector of views.
-  Return value is a CouchbaseCljHttpFuture object.
-  design-doc is a design document name.")
-  (get-views [clj-client design-doc]
-    "Synchronously get a sequence of views.
-  Return value is a Vector of views.
-  design-doc is a design document name.")
+
+  ;; TODO: Currently not supported due to API change in the Couchbase Client.
+  ;(async-get-views [clj-client design-doc]
+  ;  "Asynchronously get a Vector of views.
+  ;Return value is a CouchbaseCljHttpFuture object.
+  ;design-doc is a design document name.")
+  ;(get-views [clj-client design-doc]
+  ;  "Synchronously get a sequence of views.
+  ;Return value is a Vector of views.
+  ;design-doc is a design document name.")
   (async-query
     [clj-client view q]
     [clj-client design-doc view-name q]
@@ -886,15 +890,15 @@
   ;(observe [clj-client k cas-id])
   ;(add-observer [clj-client conn-obs])
   ;(remove-observer [clj-client conn-obs])
-  (flush
-    [clj-client]
-    [clj-client delay]
-    "Flush all cached and persisted data.
-  If flushing has succeeded then true is returned, otherwise false.  
-  delay is the period of time to delay, in seconds 
-  To do flushing, you'll need to enable flush_all by using cbepctl command.
-  ex: cbepctl localhost:11210 set flush_param flushall_enabled true
-  Currently there is a bug in this command and it may not work as expected.")
+;  (flush
+;    [clj-client]
+;    [clj-client delay]
+;    "Flush all cached and persisted data.
+;  If flushing has succeeded then true is returned, otherwise false.  
+;  delay is the period of time to delay, in seconds 
+;  To do flushing, you'll need to enable flush_all by using cbepctl command.
+;  ex: cbepctl localhost:11210 set flush_param flushall_enabled true
+;  Currently there is a bug in this command and it may not work as expected.")
   (shutdown
     [clj-client]
     [clj-client timeout]
@@ -929,7 +933,9 @@
   (get-failure-mode [clj-client] (.getFailureMode cf))
   (get-hash-alg [clj-client] (.getHashAlg cf))
   (get-max-reconnect-delay [clj-client] (.getMaxReconnectDelay cf))
-  (get-min-reconnect-interval [clj-client] (.getMinReconnectInterval cf))
+
+  ;; TODO: Not working
+  ;(get-min-reconnect-interval [clj-client] (.getMinReconnectInterval cf))
 
   ;; TODO: APIs not provided?
   ;(get-obs-poll-interval [clj-client] (.getObsPollInterval cf))
@@ -1242,12 +1248,15 @@
     (let [^HttpFuture fut (.asyncGetView cc design-doc view-name)]
       (->CouchbaseCljHttpFuture cf fut)))
   (get-view [clj-client design-doc view-name] (.getView cc design-doc view-name))
-  (async-get-views [clj-client design-doc]
-    (let [^Future fut (.asyncGetViews cc design-doc)]
-      (->CouchbaseCljHttpFuture cf fut)))
-  (get-views [clj-client design-doc]
-    (when-let [rs (.getViews cc design-doc)]
-      (seq rs)))
+
+  ;; TODO: Currently not supported due to API change in the Couchbase Client.
+  ;(async-get-views [clj-client design-doc]
+  ;  (let [^Future fut (.asyncGetViews cc design-doc)]
+  ;    (->CouchbaseCljHttpFuture cf fut)))
+  ;(get-views [clj-client design-doc]
+  ;  (when-let [rs (.getViews cc design-doc)]
+  ;    (seq rs)))
+
   (async-query [clj-client view q]
     (let [^couchbase_clj.query.CouchbaseCljQuery
           new-q (if (instance? couchbase_clj.query.CouchbaseCljQuery q)
@@ -1281,7 +1290,7 @@
   (wait-queue [clj-client] (wait-queue clj-client (.getOperationTimeout cf)))
   (wait-queue [clj-client timeout] (.waitForQueues cc timeout TimeUnit/MILLISECONDS))
 
-  ;; TODO: Not working
+  ;; TODO: Currently not working
   ; (observe [clj-client k cas-id]
   ;   (let [^String nk (name k)]
   ;     (.observe cc nk ^long cas-id)))
@@ -1289,8 +1298,10 @@
   ;; TODO: Add observer methods
   ;(add-observer [clj-client conn-obs] (.addObserver cc conn-obs))
   ;(remove-observer [clj-client conn-obs] (.removeObserver cc conn-obs))
-  (flush [clj-client] (flush clj-client -1))
-  (flush [clj-client delay] (.isSuccess (.getStatus (.flush cc ^int delay))))
+
+  ;; TODO: Currently not working
+  ;(flush [clj-client] (flush clj-client -1))
+  ;(flush [clj-client delay] (.isSuccess (.getStatus (.flush cc ^int delay))))
   (shutdown [clj-client] (shutdown clj-client -1))
   (shutdown [clj-client timeout] (.shutdown cc timeout TimeUnit/MILLISECONDS)))
 
@@ -1331,7 +1342,6 @@
                   :failure-mode :redistribute
                   :hash-alg :native-hash
                   :max-reconnect-delay 30000
-                  :min-reconnect-interval 1100
                   :obs-poll-interval 100
                   :obs-poll-max 400
                   :op-queue-max-block-time 10000
