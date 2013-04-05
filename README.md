@@ -3,12 +3,12 @@
 A Clojure client for Couchbase Server 2.0, built on top of [couchbase-java-client](https://github.com/couchbase/couchbase-java-client) and [spymemcached](http://code.google.com/p/spymemcached/).
 
 ---
-Couchbase Server 2.0 is the next major version of Couchbase Server, currently in beta release. 
+Couchbase Server 2.0 is the major version of Couchbase Server. 
 It has an official Java client library that uses spymemcached internally and couchbase-clj is built on top of it.
 
-This library provides a thin layer of Clojure that simplifies the compilicated Java interface.
+This library provides a layer of Clojure that simplifies the compilicated Java interface.
 
-Currently, couchbase-clj is based on couchbase-java-client 1.1-dp3 and spymemcached 2.8.7.
+Currently, couchbase-clj is based on couchbase-java-client 1.1.5 and spymemcached 2.8.12.
 
 
 ## Installation
