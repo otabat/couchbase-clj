@@ -452,10 +452,9 @@ This is typically used to get a large data lazily.
     ;; Get a lazy sequence of the query results.
     ;; Specify the design document name, view name, query options,
     ;; and the amount of documents to get in each iterations (minimum value is 15).
-    (def results (c/lazy-query client "dev_doc" "view" {:include-docs true} 15))
-	=> #'sample/results
-	
-	(doseq [r results]
+    ;; Be sure not to hold the head of the sequence.
+    
+	(doseq [r (c/lazy-query client "dev_doc" "view" {:include-docs true} 15)]
 	  (println (map c/view-id r)))
 	;; (key1 key2 key3 key4 key5 ...)
 	;; (key16 key17 key18 key19 key20 ...)
