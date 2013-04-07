@@ -1155,42 +1155,49 @@
       (is (false? (cbc/shutdown c))))))
 
 (deftest view-id-test
-  (testing "Get IDs of query results."
+  (testing "Get the ID of query result."
     (let [rs (cbc/query (tf/get-client) tf/design-doc tf/view {})
           row (first rs)]
       (is (instance? ViewRow row))
       (is (not (nil? (cbc/view-id row)))))))
 
 (deftest view-key-test
-  (testing "Get keys of query results."
+  (testing "Get the key of query result."
     (let [rs (cbc/query (tf/get-client) tf/design-doc tf/view {})
           row (first rs)]
       (is (instance? ViewRow row))
       (is (not (nil? (cbc/view-key row)))))))
 
+(deftest view-key-json-est
+  (testing "Get the JSON string key of query result"
+    (let [rs (cbc/query (tf/get-client) tf/design-doc tf/view2 {})
+          row (first rs)]
+      (is (instance? ViewRow row))
+      (is (not (nil? (cbc/view-val row)))))))
+
 (deftest view-val-test
-  (testing "Get values of query results."
+  (testing "Get the value of query result."
     (let [rs (cbc/query (tf/get-client) tf/design-doc tf/view {})
           row (first rs)]
       (is (instance? ViewRow row))
       (is (not (nil? (cbc/view-val row)))))))
 
 (deftest view-val-json-test
-  (testing "Get JSON string values of query results converted to Clojure data."
+  (testing "Get the JSON string value of query result converted to Clojure data."
     (let [rs (cbc/query (tf/get-client) tf/design-doc tf/view2 {})
           row (first rs)]
       (is (instance? ViewRow row))
       (is (not (nil? (cbc/view-val-json row)))))))
 
 (deftest view-doc-test
-  (testing "Get documents of query results."
+  (testing "Get the document of query result."
     (let [rs (cbc/query (tf/get-client) tf/design-doc tf/view {:include-docs true})
           row (first rs)]
       (is (instance? ViewRow row))
       (is (not (nil? (cbc/view-doc row)))))))
 
 (deftest view-doc-json-test
-  (testing "Get JSON string documents of query results converted to Clojure data"
+  (testing "Get the JSON string document of query result converted to Clojure data"
     (let [rs (cbc/query (tf/get-client) tf/design-doc tf/view2 {:include-docs true})
           row (first rs)]
       (is (instance? ViewRow row))

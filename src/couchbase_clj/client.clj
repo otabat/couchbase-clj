@@ -82,36 +82,42 @@
   "Get the JSON string value converted to Clojure data from the CASValue object.
   nil is returned, if c is nil."
   [^CASValue c]
-  (read-json (cas-val c)))
+  (read-json (.getValue c)))
 
 (defn view-id
-  "Get the ID of query results from ViewRow object."
+  "Get the ID of query result from ViewRow object."
   [^ViewRow view]
   (.getId view))
 
 (defn view-key
-  "Get the key of query results from ViewRow object."
+  "Get the key of query result from ViewRow object."
   [^ViewRow view]
   (.getKey view))
 
+(defn view-key-json
+  "Get the JSON string key of query result from ViewRow object,
+  converted to Clojure data."
+  [^ViewRow view]
+  (read-json (.getKey view)))
+
 (defn view-val
-  "Get the value of query results from ViewRow object."
+  "Get the value of query result from ViewRow object."
   [^ViewRow view]
   (.getValue view))
 
 (defn view-val-json
-  "Get the JSON string value of query results from ViewRow object,
-  Converted to Clojure data."
+  "Get the JSON string value of query result from ViewRow object,
+  converted to Clojure data."
   [^ViewRow view]
-  (read-json (view-val view)))
+  (read-json (.getValue view)))
 
 (defn view-doc
-  "Get document of query results when include-docs is set to true."
+  "Get the document of query result when include-docs is set to true."
   [^ViewRow view]
   (.getDocument view))
 
 (defn view-doc-json
-  "Get JSON string document of query results converted to Clojure data
+  "Get the JSON string document of query result converted to Clojure data
   when include-docs is set to true."
   [^ViewRow view]
   (read-json (.getDocument view)))
@@ -390,12 +396,6 @@
   transcoder is the Transcoder object to be used to serialize the value.
   If transcoder is not specified,
   SerializingTranscoder will be specified as the default transcoder.")
-  (async-get-multi-json
-    [clj-client k]
-    [clj-client k opts]
-    "Asynchronously get multiple JSON string value converted to Clojure data of the specified key.
-  You can specify a optional transcoder keyword in a map.
-  Arguments are the same as get-multi.")
   (get-multi
     [clj-client ks]
     [clj-client ks opts]
@@ -869,10 +869,6 @@
 
   ex:
   (doseq [res (lazy-query clj-client view q num)]
-    (println (view-ids res)))
-  => (:id1 :id2 :id3 :id4 :id5)
-
-  (doseq [res (lazy-query clj-client view q num)]
     (println (map view-id res)))
   => (:id1 :id2 :id3 :id4 :id5)")
   (wait-queue
@@ -949,8 +945,8 @@
   (should-optimize? [clj-client] (.shouldOptimize cf))
   (use-nagle-algorithm? [clj-client] (.useNagleAlgorithm cf))
   (async-add [clj-client k v] (async-add clj-client k v {}))
-  (async-add [clj-client  k v {:keys [^int expiry ^Transcoder transcoder
-                             observe persist replicate]}]
+  (async-add [clj-client k v {:keys [^int expiry ^Transcoder transcoder
+                                     observe persist replicate]}]
     (let [^String nk (name k)
           ^String sv (str v)
           ^int exp (or expiry ^int @default-data-expiry)
@@ -969,11 +965,11 @@
       (.get fut to TimeUnit/MILLISECONDS)))
   (async-add-json [clj-client k v] (async-add-json clj-client k v {}))
   (async-add-json [clj-client k v opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (async-add clj-client k jv opts)))
   (add-json [clj-client k v] (add-json clj-client k v {}))
   (add-json [clj-client k v opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (add clj-client k jv opts)))
   (async-append [clj-client k v cas-id] (async-append clj-client k v cas-id {}))
   (async-append [clj-client k v cas-id {:keys [^Transcoder transcoder]}]
@@ -1161,15 +1157,15 @@
       (.get fut to TimeUnit/MILLISECONDS)))
   (async-replace-json [clj-client k v] (async-replace-json clj-client k v {}))
   (async-replace-json [clj-client k v opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (async-replace clj-client k jv opts)))
   (replace-json [clj-client k v] (replace-json clj-client k v {}))
   (replace-json [clj-client k v opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (replace clj-client k jv opts)))
   (async-set [clj-client k v] (async-set clj-client k v {}))
   (async-set [clj-client k v {:keys [^int expiry ^Transcoder transcoder
-                            observe persist replicate]}]
+                                     observe persist replicate]}]
     (let [^String nk (name k)
           ^String sv (str v)
           ^int exp (or expiry ^int @default-data-expiry)
@@ -1188,11 +1184,11 @@
       (.get fut to TimeUnit/MILLISECONDS)))
   (async-set-json [clj-client k v] (async-set-json clj-client k v {}))
   (async-set-json [clj-client k v opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (async-set clj-client k jv opts)))
   (set-json [clj-client k v] (set-json clj-client k v {}))
   (set-json [clj-client k v opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (set clj-client k jv opts)))
   (async-set-cas [clj-client k v cas-id]
     (async-set-cas clj-client k v cas-id {}))
@@ -1211,12 +1207,12 @@
   (async-set-cas-json [clj-client k v cas-id]
     (async-set-cas-json clj-client k v cas-id {}))
   (async-set-cas-json [clj-client k v cas-id opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (async-set-cas clj-client k jv cas-id opts)))
   (set-cas-json [clj-client k v cas-id]
     (set-cas-json clj-client k v cas-id {}))
   (set-cas-json [clj-client k v cas-id opts]
-    (let [jv (json-str v)]
+    (let [jv (write-json v)]
       (set-cas clj-client k jv cas-id opts)))
   (async-touch [clj-client k]
     (async-touch clj-client k {}))
