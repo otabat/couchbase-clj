@@ -10,4 +10,4 @@
     (json/read-json data true false "")))
 
 (def ^{:doc "Wrapper of clojure.data.json/json-str.\n  Just for convenience."}
-  json-str json/json-str)
+  write-json json/json-str)

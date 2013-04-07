@@ -11,7 +11,7 @@
     (is (= [1 2 3] (util/read-json (json/json-str [1 2 3]))))
     (is (= nil (util/read-json nil)))))
 
-(deftest json-str-test
+(deftest write-json-test
   (testing "convert clojure data to json data"
-    (is (= util/json-str json/json-str))))
+    (is (= util/write-json json/json-str))))
 
