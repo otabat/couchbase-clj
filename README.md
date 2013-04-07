@@ -15,7 +15,7 @@ Currently, couchbase-clj is based on couchbase-java-client 1.1.5 and spymemcache
 ---
 Add the following dependency to your Leiningen `project.clj` file:
 
-    [couchbase-clj "0.1.1"]
+    [couchbase-clj "0.1.2"]
 
 ## Documentation
 ---
@@ -464,6 +464,6 @@ This is typically used to get a large data lazily.
 ## License
 ---
 
-Copyright © 2012 Tatsuya Tsuda
+Copyright © 2012-2013 Tatsuya Tsuda
 
 Distributed under the Eclipse Public License, the same as Clojure.
