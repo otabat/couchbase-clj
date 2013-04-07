@@ -18,6 +18,7 @@
 (def design-doc "dev_doc")
 (def view "view")
 (def view2 "view2")
+(def view3 "view3")
 (declare ^:dynamic *client*)
 
 (defn exec-cmd
