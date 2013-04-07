@@ -4,7 +4,8 @@
            [com.couchbase.client.protocol.views Stale]
            [com.couchbase.client.protocol.views OnError])
   (:refer-clojure :exclude [assoc assoc! get-method str])
-  (:require [couchbase-clj.config :as cb-config]))
+  (:require [couchbase-clj.config :as cb-config]
+            [couchbase-clj.util :as cb-util]))
 
 (declare dispatch)
 (declare create-query)
@@ -31,19 +32,40 @@
   (include-docs? [clj-query] "Returns true if the original JSON docuemnt will be included.")
   (set-include-docs [clj-query b] "Set true to include the original JSON document.")
   (set-desc [clj-query b] "Set true to retrieve the results in descending order.")
-  (set-startkey-doc-id [clj-query doc-id] "Set the document ID to start at. doc-id can be a keyword or a string.")
-  (set-endkey-doc-id [clj-query doc-id] "Set the document ID to end at.")
+  (set-startkey-doc-id [clj-query doc-id]
+    "Set the document ID to start at. doc-id can be a keyword or a string.")
+  (set-endkey-doc-id [clj-query doc-id]
+    "Set the document ID to end at. doc-id can be a keyword or a string.")
   (set-group [clj-query b] "Set true to reduce to a set of distinct keys.")
   (set-group-level [clj-query group-level]
     "Set the group-level as an integer to specify how many items of the keys are used in grouping.")
   (set-inclusive-end [clj-query b] "Set true to include the endkey in the result.")
-  (set-key [clj-query k] "Set true to fetch only the rows with the given keyword.")
+  (set-key [clj-query x]
+    "Set the key to fetch only the rows with the given keyword, which data will be converted to a JSON string value.
+  ex1: (set-key 1000)
+  ex2: (set-key :a)
+  ex3: (set-key \"a\")
+  ex4: (set-key [1 2])")
   (set-limit [clj-query limit] "Set the integer limit to specify the maximum number of rows to return.")
-  (set-range [clj-query start-k end-k]
-    "Set both startkey and endkey as an Vector, ex: (set-range [start-k end-k])
-  Both start-k and end-k can be a keyword or a string value.")
-  (set-range-start [clj-query k] "Set the start key as a keyword or a string value.")
-  (set-range-end [clj-query k] "Set the end key as a keyword or a string value.")
+  (set-range [clj-query coll]
+    "Set both startkey and endkey in a sequential collection.
+  Both start-key and end-key will be converted to a JSON string.
+  ex1: (set-range-start [1000 2000])
+  ex2: (set-range-start [:a :b])
+  ex3: (set-range-start [\"a\" \"b\"])
+  ex4: (set-range-start [[1 2] [3 4])")
+  (set-range-start [clj-query x]
+    "Set the start key, which the data will be converted to a JSON string value.
+  ex1: (set-range-start 1000)
+  ex2: (set-range-start :a)
+  ex3: (set-range-start \"a\")
+  ex4: (set-range-start [1 2])")
+  (set-range-end [clj-query x]
+    "Set the end key, which the data will be converted to a JSON string value.
+  ex1: (set-range-end 2000)
+  ex2: (set-range-end :b)
+  ex3: (set-range-end \"b\")
+  ex4: (set-range-end [3 4])")
   (set-reduce [clj-query b] "Set true to use the reduce function of the view.")
   (set-skip [clj-query docs-to-skip] "Set the number of documents to skip as an integer.")
   (set-stale [clj-query stl]
@@ -73,8 +95,8 @@
     "Update the query, after created by create-query or defquery.
 
   ex:
-  (defquery query {:limit 1
-                   :group-level 2})
+  (defquery query {:include-docs true
+                   :group true})
 
   (assoc! query {:on-error :stop
                  :group-level 2
@@ -94,11 +116,12 @@
   (set-group [clj-query b] (.setGroup q b))
   (set-group-level [clj-query group-level] (.setGroupLevel q group-level))
   (set-inclusive-end [clj-query b] (.setInclusiveEnd q b))
-  (set-key [clj-query k] (.setKey q (name k)))
+  (set-key [clj-query x] (.setKey q (cb-util/write-json x)))
   (set-limit [clj-query limit] (.setLimit q limit))
-  (set-range [clj-query start-k end-k] (.setRange q (name start-k) (name end-k)))
-  (set-range-start [clj-query k] (.setRangeStart q (name k)))
-  (set-range-end [clj-query k] (.setRangeEnd q (name k)))
+  (set-range [clj-query coll]
+    (.setRange q (cb-util/write-json (first coll)) (cb-util/write-json (second coll))))
+  (set-range-start [clj-query x] (.setRangeStart q (cb-util/write-json x)))
+  (set-range-end [clj-query x] (.setRangeEnd q (cb-util/write-json x)))
   (set-reduce [clj-query b] (.setReduce q b))
   (set-skip [clj-query docs-to-skip] (.setSkip q docs-to-skip))
   (set-stale [clj-query stl] (.setStale q (stale stl)))
@@ -135,9 +158,7 @@
   (let [k (key kv)
         v (val kv)]
     (if-let [method (k method-map)]
-      (if (coll? v)
-        (apply method query v)
-        (method query v))
+      (method query v)
       (throw (java.lang.UnsupportedOperationException.
               (format "Wrong keyword %s specified for a query." k))))))
 
@@ -150,7 +171,7 @@
                  :desc false
                  :startkey-doc-id :doc1
                  :endkey-doc-id :doc2
-                 :group false
+                 :group true
                  :group-level 1
                  :inclusive-end false
                  :key :key1
@@ -177,7 +198,7 @@
                    :desc false
                    :startkey-doc-id :doc1
                    :endkey-doc-id :doc2
-                   :group false
+                   :group true
                    :group-level 1
                    :inclusive-end false
                    :key :key1

@@ -68,9 +68,13 @@
 (deftest set-key-test
   (testing "Set key option to a query."
     (let [q1 (cbq/create-query {:key :key1})
-          q2 (cbq/create-query {:key "key2"})]
+          q2 (cbq/create-query {:key "key2"})
+          q3 (cbq/create-query {:key 1})
+          q4 (cbq/create-query {:key [1 2]})]
       (is (= (cbq/str q1) "?key=%22key1%22"))
-      (is (= (cbq/str q2) "?key=%22key2%22")))))
+      (is (= (cbq/str q2) "?key=%22key2%22"))
+      (is (= (cbq/str q3) "?key=1"))
+      (is (= (cbq/str q4) "?key=%5B1%2C2%5D")))))
 
 (deftest set-limit-test
   (testing "Set limit option to a query."
@@ -80,23 +84,35 @@
 (deftest set-range-test
   (testing "Set range option to a query."
     (let [q1 (cbq/create-query {:range [:doc1 :doc2]})
-          q2 (cbq/create-query {:range ["doc3" "doc4"]})]
+          q2 (cbq/create-query {:range ["doc3" "doc4"]})
+          q3 (cbq/create-query {:range [1 2]})
+          q4 (cbq/create-query {:range [[1 2] [3 4]]})]
       (is (= (cbq/str q1) "?startkey=%22doc1%22&endkey=%22doc2%22"))
-      (is (= (cbq/str q2) "?startkey=%22doc3%22&endkey=%22doc4%22")))))
+      (is (= (cbq/str q2) "?startkey=%22doc3%22&endkey=%22doc4%22"))
+      (is (= (cbq/str q3) "?startkey=1&endkey=2"))
+      (is (= (cbq/str q4) "?startkey=%5B1%2C2%5D&endkey=%5B3%2C4%5D")))))
 
 (deftest set-range-start-test
   (testing "Set range-start option to a query."
     (let [q1 (cbq/create-query {:range-start :doc1})
-          q2 (cbq/create-query {:range-start "doc2"})]
+          q2 (cbq/create-query {:range-start "doc2"})
+          q3 (cbq/create-query {:range-start 1})
+          q4 (cbq/create-query {:range-start [1 2]})]
       (is (= (cbq/str q1) "?startkey=%22doc1%22"))
-      (is (= (cbq/str q2) "?startkey=%22doc2%22")))))
+      (is (= (cbq/str q2) "?startkey=%22doc2%22"))
+      (is (= (cbq/str q3) "?startkey=1"))
+      (is (= (cbq/str q4) "?startkey=%5B1%2C2%5D")))))
 
 (deftest set-range-end-test
   (testing "Set range-end to a query."
     (let [q1 (cbq/create-query {:range-end :doc1})
-          q2 (cbq/create-query {:range-end "doc2"})]
+          q2 (cbq/create-query {:range-end "doc2"})
+          q3 (cbq/create-query {:range-end 2})
+          q4 (cbq/create-query {:range-end [3 4]})]
       (is (= (cbq/str q1) "?endkey=%22doc1%22"))
-      (is (= (cbq/str q2) "?endkey=%22doc2%22")))))
+      (is (= (cbq/str q2) "?endkey=%22doc2%22"))
+      (is (= (cbq/str q3) "?endkey=2"))
+      (is (= (cbq/str q4) "?endkey=%5B3%2C4%5D")))))
 
 (deftest set-reduce-test
   (testing "Set reduce option to a query."
