@@ -456,8 +456,8 @@ This is typically used to get a large data lazily.
     
 	(doseq [r (c/lazy-query client "dev_doc" "view" {:include-docs true} 15)]
 	  (println (map c/view-id r)))
-	;; (key1 key2 key3 key4 key5 ...)
-	;; (key16 key17 key18 key19 key20 ...)
+	;; (doc-id1 doc-id2 doc-id3 doc-id4 doc-id5 ...)
+	;; (doc-id16 doc-id17 doc-id18 doc-id19 doc-id20 ...)
 	=> nil
 	
 
