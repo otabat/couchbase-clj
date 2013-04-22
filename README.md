@@ -29,7 +29,7 @@ Operations are synchronous and some have an alternative async version using the 
 To create the client connection, specify the bucket name, password and the sequence collection of the server URIs.
 
     (ns sample
-      (:use [couchbase-clj.client :as c]))
+      (:require [couchbase-clj.client :as c]))
       
     (c/defclient client {:bucket "default"
                          :password ""
@@ -55,8 +55,8 @@ To create the client connection, specify the bucket name, password and the seque
 ### Write
 #### Sync write
     (ns sample
-      (:use [couchbase-clj.client :as c]
-            [couchbase-clj.util :as u])) 
+      (:require [couchbase-clj.client :as c]
+                [couchbase-clj.util :as u])) 
                
     (c/defclient client)
 
@@ -139,8 +139,8 @@ To create the client connection, specify the bucket name, password and the seque
 
 #### Async write
     (ns sample
-      (:use [couchbase-clj.client :as c]
-            [couchbase-clj.util :as u])) 
+      (:require [couchbase-clj.client :as c]
+                [couchbase-clj.util :as u])) 
                
     (c/defclient client)
 
