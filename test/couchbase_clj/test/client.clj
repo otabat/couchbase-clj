@@ -22,8 +22,7 @@
            [couchbaes_clj.future.CouchbaseCljBulkGetFuture]
            [couchbaes_clj.future.CouchbaseCljGetFuture]
            [couchbaes_clj.future.CouchbaseCljOperationFuture]
-           [couchbaes_clj.future.CouchbaseCljHttpFuture]
-           )
+           [couchbaes_clj.future.CouchbaseCljHttpFuture])
   (:require [couchbase-clj.client :as cbc]
             [couchbase-clj.query :as cbq]
             [couchbase-clj.util :as cbu]
@@ -41,6 +40,7 @@
     (is (= (cbc/persist-to :three) PersistTo/THREE))
     (is (= (cbc/persist-to :four) PersistTo/FOUR))
     (is (= (cbc/persist-to :else) PersistTo/MASTER))))
+
 (deftest replicate-to-test
   (testing "Conversion of a keyword to a ReplicateTo object."
     (is (= (cbc/replicate-to :zero) ReplicateTo/ZERO))
@@ -62,7 +62,8 @@
 (deftest cas-val-json-test
   (testing "Get the JSONG string value converted to Clojure data from the CASValue object."
     (cbc/add-json (tf/get-client) :cas-val-json {:cas-val-json 1})
-    (is (= (cbc/cas-val-json (cbc/get-cas (tf/get-client) :cas-val-json)) {:cas-val-json 1}))))
+    (is (= (cbc/cas-val-json (cbc/get-cas (tf/get-client) :cas-val-json))
+           {:cas-val-json 1}))))
 
 (deftest get-client-test
   (testing "Get the CouchbaseClient object."
