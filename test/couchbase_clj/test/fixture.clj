@@ -5,9 +5,9 @@
 
 (def admin-username "Administrator")
 (def admin-password "pwpwpw")
-(def bucket "couchbase_clj_test")
+(def bucket "test")
 (def bucket-type "couchbase")
-(def bucket-ram-size 256)
+(def bucket-ram-size 100)
 (def bucket-replica 0)
 (def host "127.0.0.1")
 (def admin-port 8091)
@@ -16,9 +16,8 @@
 (def bucket-username "")
 (def bucket-password "")
 (def design-doc "dev_doc")
-(def view "view")
+(def view "view1")
 (def view2 "view2")
-(def view3 "view3")
 (declare ^:dynamic *client*)
 
 (defn exec-cmd
