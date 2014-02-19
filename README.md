@@ -495,7 +495,19 @@ This is typically used to get a large data lazily.
 ;; (doc-id1 doc-id2 doc-id3 doc-id4 doc-id5 ...)
 ;; (doc-id16 doc-id17 doc-id18 doc-id19 doc-id20 ...)
 ;=> nil
-```  
+```
+
+## Change Log
+* Release 0.1.3 on 2014-02-11
+  * Updated couchbase-java-client version to 1.3.2.
+* Release 0.1.2 on 2013-04-07
+  * Changed range query API, so that it can take an arbitrary Clojure data structure.
+  * Added `view-key-json`. 
+  * Renamed `json-str` to `write-json`.
+* Release 0.1.1 on 2013-04-05
+  * Updated couchbase-java-client version to 1.1.5.
+* Release 0.1.0 on 2012-10-08
+  * Initial release 
 
 ## License
 ---
