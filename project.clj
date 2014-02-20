@@ -1,4 +1,4 @@
-(defproject couchbase-clj "0.1.3"
+(defproject couchbase-clj "0.2.0-SNAPSHOT"
   :description "A Clojure client for Couchbase Server 2.x."
   :url "https://github.com/otabat/couchbase-clj"
   :license {:name "Eclipse Public License"
