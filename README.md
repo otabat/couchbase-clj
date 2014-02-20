@@ -21,10 +21,10 @@ Add the following dependency to your Leiningen `project.clj` file:
 
 ## Basic Usage
 ---
-Operations are synchronous and some have an alternative async version using the Future. Only the basic operations, usages are shown below. Check the API Docs for more information.
+Operations are synchronous and some have an alternative async version using the Future. Only basic usages are shown below. Check the API docs for more information.
 
-### Create the client
-To create the client connection, specify the bucket name, password and the sequence collection of the server URIs.
+### Create a connection 
+To create a client connection, specify a bucket name, password, and vector of server URIs.
 
 ```clojure
 (ns sample
