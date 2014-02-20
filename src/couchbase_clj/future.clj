@@ -1,16 +1,11 @@
 (ns couchbase-clj.future
-  (:import [java.util.concurrent Future]
-           [java.util.concurrent TimeUnit]
-           [java.util.concurrent TimeoutException]
+  (:import [java.util.concurrent Future TimeUnit TimeoutException]
            [net.spy.memcached CASResponse]
-           [net.spy.memcached.internal BulkGetFuture]
-           [net.spy.memcached.internal GetFuture]
-           [net.spy.memcached.internal OperationFuture]
-           [com.couchbase.client.internal HttpFuture]
-           [com.couchbase.client CouchbaseConnectionFactory])
+           [net.spy.memcached.internal BulkGetFuture GetFuture OperationFuture]
+           [com.couchbase.client CouchbaseConnectionFactory]
+           [com.couchbase.client.internal HttpFuture])
   (:refer-clojure :exclude [future-cancel future-cancelled? future-done?])
-  (:use [couchbase-clj.config]
-        [couchbase-clj.util]))
+  (:require [couchbase-clj.util :as cb-util]))
 
 (defn cas-response
   "Get the CASResponse values converted to a corresponding keyword.
@@ -35,23 +30,23 @@
     [clj-future]
     [clj-future timeout default]
     "Deref a JSON string and return the converted Clojure data.
-  With no arguments, the default operation timeout (specified when creating client)
-  will be set, and if it has reached, the TimeoutException will be thrown.
+  With no arguments, the default operation timeout will be set,
+  and if it has reached, the TimeoutException will be thrown.
   The variant taking a timeout will return default and continue processing,
   if the timeout (in milliseconds) has reached and catched a TimeoutException.")
   (future-get
     [clj-future]
     [clj-future timeout]
     "Get the result data from the Future object.
-  With no arguments, the default operation timeout (specified when creating client)
-  will be set, and if has reached, the TimeoutException will be thrown.
+  With no arguments, the default operation timeout will be set,
+  and if has reached, the TimeoutException will be thrown.
   You can pass a optional timeout argument in milliseconds.")
   (future-get-json
     [clj-future]
     [clj-future timeout]
     "Get the result data from the Future object that is a JSON string.
-  With no arguments, the default operation timeout (specified when creating client)
-  will be set, and if has reached, the OperationTimeoutException will be thrown.
+  With no arguments, the default operation timeout will be set,
+  and if has reached, the OperationTimeoutException will be thrown.
   You can pass a optional timeout argument in milliseconds.")
   (future-status [clj-future]
     "Return the status of the Future object.
@@ -60,7 +55,8 @@
   (future-cancelled? [clj-future] "Returns true if future is cancelled?")
   (future-done? [clj-future] "Returns true if future is done."))
 
-(deftype CouchbaseCljBulkGetFuture [^CouchbaseConnectionFactory cf ^BulkGetFuture fut]
+(deftype CouchbaseCljBulkGetFuture
+  [^CouchbaseConnectionFactory cf ^BulkGetFuture fut]
   clojure.lang.IDeref
   (deref [clj-future]
     (let [m (into {} (.get fut (.getOperationTimeout cf) TimeUnit/MILLISECONDS))]
@@ -83,11 +79,11 @@
   (deref-json [clj-future]
     (let [m (deref clj-future)]
       (reduce #(merge %1 {(key %2)
-                          (read-json (val %2))}) nil m)))
+                          (cb-util/read-json (val %2))}) nil m)))
   (deref-json [clj-future timeout default]
     (let [m (deref clj-future timeout default)]
       (reduce #(merge %1 {(key %2)
-                          (read-json (val %2))}) nil m)))
+                          (cb-util/read-json (val %2))}) nil m)))
   (future-get [clj-future]
     (future-get clj-future  (.getOperationTimeout cf)))
   (future-get [clj-future timeout]
@@ -98,12 +94,12 @@
     (let [m (future-get clj-future)]
       (when-not (empty? m)
         (reduce #(merge %1 {(key %2)
-                            (read-json (val %2))}) nil m))))
+                            (cb-util/read-json (val %2))}) nil m))))
   (future-get-json [clj-future timeout]
     (let [m (future-get clj-future timeout)]
       (when-not (empty? m)
         (reduce #(merge %1 {(key %2)
-                            (read-json (val %2))}) nil m))))
+                            (cb-util/read-json (val %2))}) nil m))))
   (future-status [clj-future] (.getStatus ^BulkGetFuture fut))
   (future-cancel [clj-future] (.cancel fut true))
   (future-cancelled? [clj-future] (.isCancelled fut))
@@ -125,18 +121,23 @@
 
   ICouchbaseCljFuture
   (get-future [clj-future] fut)
-  (deref-json [clj-future] (read-json (deref clj-future)))
-  (deref-json [clj-future timeout default] (read-json (deref clj-future timeout default)))
+  (deref-json [clj-future] (cb-util/read-json (deref clj-future)))
+  (deref-json [clj-future timeout default]
+    (cb-util/read-json (deref clj-future timeout default)))
   (future-get [clj-future] (future-get clj-future (.getOperationTimeout cf)))
-  (future-get [clj-future timeout] (.get fut ^long timeout TimeUnit/MILLISECONDS))
-  (future-get-json [clj-future] (future-get-json clj-future (.getOperationTimeout cf)))
-  (future-get-json [clj-future timeout] (read-json (future-get clj-future timeout)))
+  (future-get [clj-future timeout]
+    (.get fut ^long timeout TimeUnit/MILLISECONDS))
+  (future-get-json [clj-future]
+    (future-get-json clj-future (.getOperationTimeout cf)))
+  (future-get-json [clj-future timeout]
+    (cb-util/read-json (future-get clj-future timeout)))
   (future-status [clj-future] (.getStatus ^GetFuture fut))
   (future-cancel [clj-future] (.cancel fut true))
   (future-cancelled? [clj-future] (.isCancelled fut))
   (future-done? [clj-future] (.isDone fut)))
 
-(deftype CouchbaseCljOperationFuture [^CouchbaseConnectionFactory cf ^OperationFuture fut]
+(deftype CouchbaseCljOperationFuture
+  [^CouchbaseConnectionFactory cf ^OperationFuture fut]
   clojure.lang.IDeref
   (deref [clj-future]
     (let [rs (.get fut (.getOperationTimeout cf) TimeUnit/MILLISECONDS)]

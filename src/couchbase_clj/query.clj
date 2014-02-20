@@ -1,8 +1,6 @@
 (ns couchbase-clj.query
   (:import [java.lang UnsupportedOperationException]
-           [com.couchbase.client.protocol.views Query]
-           [com.couchbase.client.protocol.views Stale]
-           [com.couchbase.client.protocol.views OnError])
+           [com.couchbase.client.protocol.views Query Stale OnError])
   (:refer-clojure :exclude [assoc assoc! get-method str])
   (:require [couchbase-clj.config :as cb-config]
             [couchbase-clj.util :as cb-util]))
@@ -22,52 +20,62 @@
 
 (defn- on-error
   [k]
-  (if (= k :stop)
-    OnError/STOP
-    OnError/CONTINUE))
+  (if (= k :stop) OnError/STOP OnError/CONTINUE))
 
 (defprotocol ICouchbaseCljQuery
   (get-query [clj-query] "Get the Query object.")
   (reduce? [clj-query] "Returns true if the reduce function will be used.")
-  (include-docs? [clj-query] "Returns true if the original JSON docuemnt will be included.")
-  (set-include-docs [clj-query b] "Set true to include the original JSON document.")
-  (set-desc [clj-query b] "Set true to retrieve the results in descending order.")
+  (include-docs? [clj-query]
+    "Returns true if the original JSON docuemnt will be included.")
+  (set-include-docs [clj-query b]
+    "Set true to include the original JSON document.")
+  (set-desc [clj-query b]
+    "Set true to retrieve the results in descending order.")
   (set-startkey-doc-id [clj-query doc-id]
     "Set the document ID to start at. doc-id can be a keyword or a string.")
   (set-endkey-doc-id [clj-query doc-id]
     "Set the document ID to end at. doc-id can be a keyword or a string.")
   (set-group [clj-query b] "Set true to reduce to a set of distinct keys.")
   (set-group-level [clj-query group-level]
-    "Set the group-level as an integer to specify how many items of the keys are used in grouping.")
-  (set-inclusive-end [clj-query b] "Set true to include the endkey in the result.")
+    "Set the group-level as an integer to specify how many items of the keys
+  are used in grouping.")
+  (set-inclusive-end [clj-query b]
+    "Set true to include the endkey in the result.")
   (set-key [clj-query x]
-    "Set the key to fetch only the rows with the given keyword, which data will be converted to a JSON string value.
+    "Set the key to fetch only the rows with the given keyword, which data
+  will be converted to a JSON string value.
+
   ex1: (set-key 1000)
   ex2: (set-key :a)
   ex3: (set-key \"a\")
   ex4: (set-key [1 2])")
-  (set-limit [clj-query limit] "Set the integer limit to specify the maximum number of rows to return.")
+  (set-limit [clj-query limit] "Set the integer limit to specify
+  the maximum number of rows to return.")
   (set-range [clj-query coll]
     "Set both startkey and endkey in a sequential collection.
   Both start-key and end-key will be converted to a JSON string.
+
   ex1: (set-range-start [1000 2000])
   ex2: (set-range-start [:a :b])
   ex3: (set-range-start [\"a\" \"b\"])
   ex4: (set-range-start [[1 2] [3 4])")
   (set-range-start [clj-query x]
     "Set the start key, which the data will be converted to a JSON string value.
+
   ex1: (set-range-start 1000)
   ex2: (set-range-start :a)
   ex3: (set-range-start \"a\")
   ex4: (set-range-start [1 2])")
   (set-range-end [clj-query x]
     "Set the end key, which the data will be converted to a JSON string value.
+
   ex1: (set-range-end 2000)
   ex2: (set-range-end :b)
   ex3: (set-range-end \"b\")
   ex4: (set-range-end [3 4])")
   (set-reduce [clj-query b] "Set true to use the reduce function of the view.")
-  (set-skip [clj-query docs-to-skip] "Set the number of documents to skip as an integer.")
+  (set-skip [clj-query docs-to-skip] "Set the number of documents
+  to skip as an integer.")
   (set-stale [clj-query stl]
     "Set the stale option as a keyword.
   When stale is equal to:
@@ -77,7 +85,7 @@
     :false or boolean false then the stale will be false.
     Index will be updated before the query is executed.
 
-    :update-after or other value then the stale will be update_after. (default value)
+    :update-after or other value then the stale will be update_after.
     Index will be updated after results are returned.")
   (set-on-error [clj-query oe]
     "Set the option to decide when an error occurs.
@@ -116,12 +124,16 @@
   (set-group [clj-query b] (.setGroup q b))
   (set-group-level [clj-query group-level] (.setGroupLevel q group-level))
   (set-inclusive-end [clj-query b] (.setInclusiveEnd q b))
-  (set-key [clj-query x] (.setKey q (cb-util/write-json x)))
+  (set-key [clj-query x] (.setKey q ^String (cb-util/write-json x)))
   (set-limit [clj-query limit] (.setLimit q limit))
   (set-range [clj-query coll]
-    (.setRange q (cb-util/write-json (first coll)) (cb-util/write-json (second coll))))
-  (set-range-start [clj-query x] (.setRangeStart q (cb-util/write-json x)))
-  (set-range-end [clj-query x] (.setRangeEnd q (cb-util/write-json x)))
+    (.setRange q
+               ^String (cb-util/write-json (first coll))
+               ^String (cb-util/write-json (second coll))))
+  (set-range-start [clj-query x]
+    (.setRangeStart q ^String (cb-util/write-json x)))
+  (set-range-end [clj-query x]
+    (.setRangeEnd q ^String (cb-util/write-json x)))
   (set-reduce [clj-query b] (.setReduce q b))
   (set-skip [clj-query docs-to-skip] (.setSkip q docs-to-skip))
   (set-stale [clj-query stl] (.setStale q (stale stl)))
@@ -134,7 +146,8 @@
   (str [clj-query] (.toString q)))
 
 (def
-  ^{:doc "A key/value conversion map of query options to corresponding set functions."}
+  ^{:doc "A key/value conversion map of query options
+  to corresponding set functions."}
   method-map
   {:desc set-desc
    :startkey-doc-id set-startkey-doc-id
