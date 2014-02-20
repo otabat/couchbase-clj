@@ -24,7 +24,7 @@ Add the following dependency to your Leiningen `project.clj` file:
 Operations are synchronous and some have an alternative async version using the Future. Only basic usages are shown below. Check the API docs for more information.
 
 ### Create a connection 
-To create a client connection, specify a bucket name, password, and vector of server URIs.
+To create a client connection, specify a bucket name and vector of server URIs.
 
 ```clojure
 (ns sample
