@@ -8,6 +8,8 @@ This library provides a layer of Clojure that simplifies the compilicated Java i
 
 Currently, couchbase-clj is based on couchbase-java-client 1.3.2.
 
+Supports Clojure version >= 1.4.0.
+
 
 ## Installation
 ---
