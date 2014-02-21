@@ -1,8 +1,14 @@
 (ns couchbase-clj.test.query
+  (:import [com.couchbase.client.protocol.views Query])
   (:use [clojure.test])
-  (:require [couchbase-clj.query :as cb-query]))
+  (:require [clojure.string :as clojure-string]
+            [couchbase-clj.query :as cb-query]))
 
-;(deftest get-query-test)
+(deftest get-query-test
+  (testing "Get the Query object"
+    (let [q1 (cb-query/create-query {})]
+      (is (instance? Query (cb-query/get-query q1))))))
+
 (deftest reduce?-test
   (testing "If a query will include documents."
     (let [q1 (cb-query/create-query {:reduce true})
@@ -172,6 +178,14 @@
     (let [q1 (cb-query/create-query {:limit 1})]
       (is (= (cb-query/str q1) "?limit=1")))))
 
+(defn- parse-query-string
+  [query-string]
+  (let [s (clojure-string/replace query-string #"^\?" "")]
+    (when-not (empty? s)
+      (->> (clojure-string/split s #"&")
+           (map #(clojure-string/split % #"="))
+           (reduce (fn [acc [k v]] (assoc acc (keyword k) v)) {})))))
+
 (deftest create-query-test
   (testing "Creation of a query."
     (let [q1 (cb-query/create-query {:limit 1})
@@ -185,24 +199,34 @@
                                      :key :key1
                                      :limit 100
                                      :range [:start-key :end-key]
-                                     :range-start :start-key2
-                                     :range-end :end-key2
                                      :reduce false
                                      :skip 1
                                      :stale false
                                      :on-error :continue})]
       (is (= (.toString (cb-query/get-query q1)) "?limit=1"))
-      (is (= (.toString (cb-query/get-query q2))
-             (str "?limit=100&endkey_docid=%22doc2%22&group_level=1"
-                  "&startkey=%22start-key2%22&skip=1&descending=false"
-                  "&reduce=false&inclusive_end=false&on_error=continue"
-                  "&endkey=%22end-key2%22&group=false&stale=false"
-                  "&key=%22key1%22&startkey_docid=doc1"))))))
+      (is (true? (cb-query/include-docs? q2)))
+      (is (= (-> (cb-query/get-query q2)
+                 .toString
+                 parse-query-string)
+             {:descending "false"
+              :startkey_docid "doc1"
+              :endkey_docid "%22doc2%22"
+              :group "false"
+              :group_level "1"
+              :inclusive_end "false"
+              :key "%22key1%22"
+              :limit "100"
+              :startkey "%22start-key%22"
+              :endkey "%22end-key%22"
+              :reduce "false"
+              :skip "1"
+              :stale "false"
+              :on_error "continue"})))))
 
-(deftest defquery
+(deftest defquery-test
   (testing "Creation of a query and binding to a Var."
     (cb-query/defquery q1 {:limit 1})
-    (cb-query/defquery q2 {:include-docs true
+    (cb-query/defquery q2 {:include-docs false
                            :desc false
                            :startkey-doc-id :doc1
                            :endkey-doc-id :doc2
@@ -211,17 +235,28 @@
                            :inclusive-end false
                            :key :key1
                            :limit 100
-                           :range [:start-key :end-key]
-                           :range-start :start-key2
-                           :range-end :end-key2
+                           :range-start :start-key
+                           :range-end :end-key
                            :reduce false
                            :skip 1
                            :stale false
                            :on-error :continue})
     (is (= (.toString (cb-query/get-query q1)) "?limit=1"))
-    (is (= (.toString (cb-query/get-query q2))
-           (str "?limit=100&endkey_docid=%22doc2%22&group_level=1"
-                "&startkey=%22start-key2%22&skip=1&descending=false"
-                "&reduce=false&inclusive_end=false&on_error=continue"
-                "&endkey=%22end-key2%22&group=false&"
-                "stale=false&key=%22key1%22&startkey_docid=doc1")))))
+    (is (false? (cb-query/include-docs? q2)))
+    (is (= (-> (cb-query/get-query q2)
+               .toString
+               parse-query-string)
+           {:descending "false"
+            :startkey_docid "doc1"
+            :endkey_docid "%22doc2%22"
+            :group "false"
+            :group_level "1"
+            :inclusive_end "false"
+            :key "%22key1%22"
+            :limit "100"
+            :startkey "%22start-key%22"
+            :endkey "%22end-key%22"
+            :reduce "false"
+            :skip "1"
+            :stale "false"
+            :on_error "continue"}))))
