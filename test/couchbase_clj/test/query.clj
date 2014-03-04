@@ -23,141 +23,217 @@
       (is (true? (cb-query/include-docs? q1)))
       (is (false? (cb-query/include-docs? q2))))))
 
-(deftest set-include-docs-test
+(deftest set-include-docs!-test
   (testing "Set include-docs option to a query."
-    (let [q1 (cb-query/create-query {:include-docs true})
-          q2 (cb-query/create-query {:include-docs false})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:include-docs true})]
+      (cb-query/set-include-docs! q1 true)
+      (cb-query/set-include-docs! q2 false)
       (is (true? (cb-query/include-docs? q1)))
-      (is (false? (cb-query/include-docs? q2))))))
+      (is (false? (cb-query/include-docs? q2)))
+      (is (true? (cb-query/include-docs? q3))))))
 
-(deftest set-desc-test
+(deftest set-desc!-test
   (testing "Set desc option to a query."
-    (let [q1 (cb-query/create-query {:desc true})
-          q2 (cb-query/create-query {:desc false})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:desc true})]
+      (cb-query/set-desc! q1 true)
+      (cb-query/set-desc! q2 false)
       (is (= (cb-query/str q1) "?descending=true"))
-      (is (= (cb-query/str q2) "?descending=false")))))
+      (is (= (cb-query/str q2) "?descending=false"))
+      (is (= (cb-query/str q3) "?descending=true")))))
 
-(deftest set-startkey-doc-id-test
+(deftest set-startkey-doc-id!-test
   (testing "Set startkey-doc-id option to a query."
-    (let [q1 (cb-query/create-query {:startkey-doc-id :doc1})
-          q2 (cb-query/create-query {:startkey-doc-id "doc2"})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:startkey-doc-id :doc3})]
+      (cb-query/set-startkey-doc-id! q1 :doc1)
+      (cb-query/set-startkey-doc-id! q2 "doc2")
       (is (= (cb-query/str q1) "?startkey_docid=doc1"))
-      (is (= (cb-query/str q2) "?startkey_docid=doc2")))))
+      (is (= (cb-query/str q2) "?startkey_docid=doc2"))
+      (is (= (cb-query/str q3) "?startkey_docid=doc3")))))
 
-(deftest set-endkey-doc-id-test
+(deftest set-endkey-doc-id!-test
   (testing "Set endkey-doc-id option to a query."
-    (let [q1 (cb-query/create-query {:endkey-doc-id :doc1})
-          q2 (cb-query/create-query {:endkey-doc-id "doc2"})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:endkey-doc-id :doc3})]
+      (cb-query/set-endkey-doc-id! q1 :doc1)
+      (cb-query/set-endkey-doc-id! q2 "doc2")
       (is (= (cb-query/str q1) "?endkey_docid=%22doc1%22"))
-      (is (= (cb-query/str q2) "?endkey_docid=%22doc2%22")))))
+      (is (= (cb-query/str q2) "?endkey_docid=%22doc2%22"))
+      (is (= (cb-query/str q3) "?endkey_docid=%22doc3%22")))))
 
-(deftest set-group-test
+(deftest set-group!-test
   (testing "Set group option to a query."
-    (let [q1 (cb-query/create-query {:group true})
-          q2 (cb-query/create-query {:group false})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:group true})]
+      (cb-query/set-group! q1 true)
+      (cb-query/set-group! q2 false)
       (is (= (cb-query/str q1) "?group=true"))
-      (is (= (cb-query/str q2) "?group=false")))))
+      (is (= (cb-query/str q2) "?group=false"))
+      (is (= (cb-query/str q3) "?group=true")))))
 
-(deftest set-group-level-test
+(deftest set-group-level!-test
   (testing "Set group-level option to a query."
-    (let [q1 (cb-query/create-query {:group-level 1})]
-      (is (= (cb-query/str q1) "?group_level=1")))))
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {:group-level 2})]
+      (cb-query/set-group-level! q1 1)
+      (is (= (cb-query/str q1) "?group_level=1"))
+      (is (= (cb-query/str q2) "?group_level=2")))))
 
-(deftest set-inclusive-end-test
+(deftest set-inclusive-end!-test
   (testing "Set inclusive-end option to a query"
-    (let [q1 (cb-query/create-query {:inclusive-end true})
-          q2 (cb-query/create-query {:inclusive-end false})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:inclusive-end true})]
+      (cb-query/set-inclusive-end! q1 true)
+      (cb-query/set-inclusive-end! q2 false)
       (is (= (cb-query/str q1) "?inclusive_end=true"))
-      (is (= (cb-query/str q2) "?inclusive_end=false")))))
+      (is (= (cb-query/str q2) "?inclusive_end=false"))
+      (is (= (cb-query/str q3) "?inclusive_end=true")))))
 
-(deftest set-key-test
+(deftest set-key!-test
   (testing "Set key option to a query."
-    (let [q1 (cb-query/create-query {:key :key1})
-          q2 (cb-query/create-query {:key "key2"})
-          q3 (cb-query/create-query {:key 1})
-          q4 (cb-query/create-query {:key [1 2]})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {})
+          q4 (cb-query/create-query {})
+          q5 (cb-query/create-query {:key :key5})]
+      (cb-query/set-key! q1 :key1)
+      (cb-query/set-key! q2 "key2")
+      (cb-query/set-key! q3 1)
+      (cb-query/set-key! q4 [1 2])
       (is (= (cb-query/str q1) "?key=%22key1%22"))
       (is (= (cb-query/str q2) "?key=%22key2%22"))
       (is (= (cb-query/str q3) "?key=1"))
-      (is (= (cb-query/str q4) "?key=%5B1%2C2%5D")))))
+      (is (= (cb-query/str q4) "?key=%5B1%2C2%5D"))
+      (is (= (cb-query/str q5) "?key=%22key5%22")))))
 
-(deftest set-limit-test
+(deftest set-limit!-test
   (testing "Set limit option to a query."
-    (let [q1 (cb-query/create-query {:limit 100})]
-      (is (= (cb-query/str q1) "?limit=100")))))
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {:limit 5})]
+      (cb-query/set-limit! q1 100)
+      (is (= (cb-query/str q1) "?limit=100"))
+      (is (= (cb-query/str q2) "?limit=5")))))
 
-(deftest set-range-test
+(deftest set-range!-test
   (testing "Set range option to a query."
-    (let [q1 (cb-query/create-query {:range [:doc1 :doc2]})
-          q2 (cb-query/create-query {:range ["doc3" "doc4"]})
-          q3 (cb-query/create-query {:range [1 2]})
-          q4 (cb-query/create-query {:range [[1 2] [3 4]]})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {})
+          q4 (cb-query/create-query {})
+          q5 (cb-query/create-query {:range [:doc5 :doc6]})]
+      (cb-query/set-range! q1 [:doc1 :doc2])
+      (cb-query/set-range! q2 ["doc3" "doc4"])
+      (cb-query/set-range! q3 [1 2])
+      (cb-query/set-range! q4 [[1 2] [3 4]])
       (is (= (cb-query/str q1) "?startkey=%22doc1%22&endkey=%22doc2%22"))
       (is (= (cb-query/str q2) "?startkey=%22doc3%22&endkey=%22doc4%22"))
       (is (= (cb-query/str q3) "?startkey=1&endkey=2"))
-      (is (= (cb-query/str q4) "?startkey=%5B1%2C2%5D&endkey=%5B3%2C4%5D")))))
+      (is (= (cb-query/str q4) "?startkey=%5B1%2C2%5D&endkey=%5B3%2C4%5D"))
+      (is (= (cb-query/str q5) "?startkey=%22doc5%22&endkey=%22doc6%22")))))
 
-(deftest set-range-start-test
+(deftest set-range-start!-test
   (testing "Set range-start option to a query."
-    (let [q1 (cb-query/create-query {:range-start :doc1})
-          q2 (cb-query/create-query {:range-start "doc2"})
-          q3 (cb-query/create-query {:range-start 1})
-          q4 (cb-query/create-query {:range-start [1 2]})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {})
+          q4 (cb-query/create-query {})
+          q5 (cb-query/create-query {:range-start :doc5})]
+      (cb-query/set-range-start! q1 :doc1)
+      (cb-query/set-range-start! q2 "doc2")
+      (cb-query/set-range-start! q3 1)
+      (cb-query/set-range-start! q4 [1 2])
       (is (= (cb-query/str q1) "?startkey=%22doc1%22"))
       (is (= (cb-query/str q2) "?startkey=%22doc2%22"))
       (is (= (cb-query/str q3) "?startkey=1"))
-      (is (= (cb-query/str q4) "?startkey=%5B1%2C2%5D")))))
+      (is (= (cb-query/str q4) "?startkey=%5B1%2C2%5D"))
+      (is (= (cb-query/str q5) "?startkey=%22doc5%22")))))
 
-(deftest set-range-end-test
+(deftest set-range-end!-test
   (testing "Set range-end to a query."
-    (let [q1 (cb-query/create-query {:range-end :doc1})
-          q2 (cb-query/create-query {:range-end "doc2"})
-          q3 (cb-query/create-query {:range-end 2})
-          q4 (cb-query/create-query {:range-end [3 4]})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {})
+          q4 (cb-query/create-query {})
+          q5 (cb-query/create-query {:range-end :doc5})]
+      (cb-query/set-range-end! q1 :doc1)
+      (cb-query/set-range-end! q2 "doc2")
+      (cb-query/set-range-end! q3 2)
+      (cb-query/set-range-end! q4 [3 4])
       (is (= (cb-query/str q1) "?endkey=%22doc1%22"))
       (is (= (cb-query/str q2) "?endkey=%22doc2%22"))
       (is (= (cb-query/str q3) "?endkey=2"))
-      (is (= (cb-query/str q4) "?endkey=%5B3%2C4%5D")))))
+      (is (= (cb-query/str q4) "?endkey=%5B3%2C4%5D"))
+      (is (= (cb-query/str q5) "?endkey=%22doc5%22")))))
 
-(deftest set-reduce-test
+(deftest set-reduce!-test
   (testing "Set reduce option to a query."
-    (let [q1 (cb-query/create-query {:reduce true})
-          q2 (cb-query/create-query {:reduce false})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:reduce true})]
+      (cb-query/set-reduce! q1 true)
+      (cb-query/set-reduce! q2 false)
       (is (= (cb-query/str q1) "?reduce=true"))
-      (is (= (cb-query/str q2) "?reduce=false")))))
+      (is (= (cb-query/str q2) "?reduce=false"))
+      (is (= (cb-query/str q3) "?reduce=true")))))
 
-(deftest set-skip-test
+(deftest set-skip!-test
   (testing "Set skip option to a query."
-    (let [q1 (cb-query/create-query {:skip 1})
-          q2 (cb-query/create-query {:skip 100})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {:skip 5})]
+      (cb-query/set-skip! q1 1)
+      (cb-query/set-skip! q2 100)
       (is (= (cb-query/str q1) "?skip=1"))
-      (is (= (cb-query/str q2) "?skip=100")))))
+      (is (= (cb-query/str q2) "?skip=100"))
+      (is (= (cb-query/str q3) "?skip=5")))))
 
-(deftest set-stale-test
+(deftest set-stale!-test
   (testing "Set stale option to a query."
-    (let [q1 (cb-query/create-query {:stale :ok})
-          q2 (cb-query/create-query {:stale :false})
-          q3 (cb-query/create-query {:stale :update-after})
-          q4 (cb-query/create-query {:stale :true})
-          q5 (cb-query/create-query {:stale true})
-          q6 (cb-query/create-query {:stale false})
-          q7 (cb-query/create-query {:stale :else})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {})
+          q4 (cb-query/create-query {})
+          q5 (cb-query/create-query {})
+          q6 (cb-query/create-query {})
+          q7 (cb-query/create-query {})
+          q8 (cb-query/create-query {:stale :ok})]
+      (cb-query/set-stale! q1 :ok)
+      (cb-query/set-stale! q2 :false)
+      (cb-query/set-stale! q3 :update-after)
+      (cb-query/set-stale! q4 :true)
+      (cb-query/set-stale! q5 true)
+      (cb-query/set-stale! q6 false)
+      (cb-query/set-stale! q7 :else)
       (is (= (cb-query/str q1) "?stale=ok"))
       (is (= (cb-query/str q2) "?stale=false"))
       (is (= (cb-query/str q3) "?stale=update_after"))
       (is (= (cb-query/str q4) "?stale=ok"))
       (is (= (cb-query/str q5) "?stale=ok"))
       (is (= (cb-query/str q6) "?stale=false"))
-      (is (= (cb-query/str q7) "?stale=update_after")))))
+      (is (= (cb-query/str q7) "?stale=update_after"))
+      (is (= (cb-query/str q8) "?stale=ok")))))
 
-(deftest set-on-error-test
+(deftest set-on-error!-test
   (testing "Set on-error option to a query."
-    (let [q1 (cb-query/create-query {:on-error :stop})
-          q2 (cb-query/create-query {:on-error :continue})
-          q3 (cb-query/create-query {:on-error :else})]
+    (let [q1 (cb-query/create-query {})
+          q2 (cb-query/create-query {})
+          q3 (cb-query/create-query {})
+          q4 (cb-query/create-query {:on-error :stop})]
+      (cb-query/set-on-error! q1 :stop)
+      (cb-query/set-on-error! q2 :continue)
+      (cb-query/set-on-error! q3 :else)
       (is (= (cb-query/str q1) "?on_error=stop"))
       (is (= (cb-query/str q2) "?on_error=continue"))
-      (is (= (cb-query/str q3) "?on_error=continue")))))
+      (is (= (cb-query/str q3) "?on_error=continue"))
+      (is (= (cb-query/str q4) "?on_error=stop")))))
 
 (deftest assoc!-test
   (testing "Getting an updated query."

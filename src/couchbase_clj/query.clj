@@ -27,56 +27,56 @@
   (reduce? [clj-query] "Returns true if the reduce function will be used.")
   (include-docs? [clj-query]
     "Returns true if the original JSON docuemnt will be included.")
-  (set-include-docs [clj-query b]
+  (set-include-docs! [clj-query b]
     "Set true to include the original JSON document.")
-  (set-desc [clj-query b]
+  (set-desc! [clj-query b]
     "Set true to retrieve the results in descending order.")
-  (set-startkey-doc-id [clj-query doc-id]
+  (set-startkey-doc-id! [clj-query doc-id]
     "Set the document ID to start at. doc-id can be a keyword or a string.")
-  (set-endkey-doc-id [clj-query doc-id]
+  (set-endkey-doc-id! [clj-query doc-id]
     "Set the document ID to end at. doc-id can be a keyword or a string.")
-  (set-group [clj-query b] "Set true to reduce to a set of distinct keys.")
-  (set-group-level [clj-query group-level]
+  (set-group! [clj-query b] "Set true to reduce to a set of distinct keys.")
+  (set-group-level! [clj-query group-level]
     "Set the group-level as an integer to specify how many items of the keys
   are used in grouping.")
-  (set-inclusive-end [clj-query b]
+  (set-inclusive-end! [clj-query b]
     "Set true to include the endkey in the result.")
-  (set-key [clj-query x]
+  (set-key! [clj-query x]
     "Set the key to fetch only the rows with the given keyword, which data
   will be converted to a JSON string value.
 
-  ex1: (set-key 1000)
-  ex2: (set-key :a)
-  ex3: (set-key \"a\")
-  ex4: (set-key [1 2])")
-  (set-limit [clj-query limit] "Set the integer limit to specify
+  ex1: (set-key! 1000)
+  ex2: (set-key! :a)
+  ex3: (set-key! \"a\")
+  ex4: (set-key! [1 2])")
+  (set-limit! [clj-query limit] "Set the integer limit to specify
   the maximum number of rows to return.")
-  (set-range [clj-query coll]
+  (set-range! [clj-query coll]
     "Set both startkey and endkey in a sequential collection.
   Both start-key and end-key will be converted to a JSON string.
 
-  ex1: (set-range-start [1000 2000])
-  ex2: (set-range-start [:a :b])
-  ex3: (set-range-start [\"a\" \"b\"])
-  ex4: (set-range-start [[1 2] [3 4])")
-  (set-range-start [clj-query x]
+  ex1: (set-range-start! [1000 2000])
+  ex2: (set-range-start! [:a :b])
+  ex3: (set-range-start! [\"a\" \"b\"])
+  ex4: (set-range-start! [[1 2] [3 4])")
+  (set-range-start! [clj-query x]
     "Set the start key, which the data will be converted to a JSON string value.
 
-  ex1: (set-range-start 1000)
-  ex2: (set-range-start :a)
-  ex3: (set-range-start \"a\")
-  ex4: (set-range-start [1 2])")
-  (set-range-end [clj-query x]
+  ex1: (set-range-start! 1000)
+  ex2: (set-range-start! :a)
+  ex3: (set-range-start! \"a\")
+  ex4: (set-range-start! [1 2])")
+  (set-range-end! [clj-query x]
     "Set the end key, which the data will be converted to a JSON string value.
 
-  ex1: (set-range-end 2000)
-  ex2: (set-range-end :b)
-  ex3: (set-range-end \"b\")
-  ex4: (set-range-end [3 4])")
-  (set-reduce [clj-query b] "Set true to use the reduce function of the view.")
-  (set-skip [clj-query docs-to-skip] "Set the number of documents
+  ex1: (set-range-end! 2000)
+  ex2: (set-range-end! :b)
+  ex3: (set-range-end! \"b\")
+  ex4: (set-range-end! [3 4])")
+  (set-reduce! [clj-query b] "Set true to use the reduce function of the view.")
+  (set-skip! [clj-query docs-to-skip] "Set the number of documents
   to skip as an integer.")
-  (set-stale [clj-query stl]
+  (set-stale! [clj-query stl]
     "Set the stale option as a keyword.
   When stale is equal to:
     :ok, :true, or boolean true then the stale will be ok.
@@ -87,7 +87,7 @@
 
     :update-after or other value then the stale will be update_after.
     Index will be updated after results are returned.")
-  (set-on-error [clj-query oe]
+  (set-on-error! [clj-query oe]
     "Set the option to decide when an error occurs.
   When oe is equal to:
     :stop
@@ -115,27 +115,27 @@
   (get-query [clj-query] q)
   (reduce? [clj-query] (.willReduce q))
   (include-docs? [clj-query] (.willIncludeDocs q))
-  (set-include-docs [clj-query b] (.setIncludeDocs q b))
-  (set-desc [clj-query b] (.setDescending q b))
-  (set-startkey-doc-id [clj-query doc-id] (.setStartkeyDocID q (name doc-id)))
-  (set-endkey-doc-id [clj-query doc-id] (.setEndkeyDocID q (name doc-id)))
-  (set-group [clj-query b] (.setGroup q b))
-  (set-group-level [clj-query group-level] (.setGroupLevel q group-level))
-  (set-inclusive-end [clj-query b] (.setInclusiveEnd q b))
-  (set-key [clj-query x] (.setKey q ^String (cb-util/write-json x)))
-  (set-limit [clj-query limit] (.setLimit q limit))
-  (set-range [clj-query coll]
+  (set-include-docs! [clj-query b] (.setIncludeDocs q b))
+  (set-desc! [clj-query b] (.setDescending q b))
+  (set-startkey-doc-id! [clj-query doc-id] (.setStartkeyDocID q (name doc-id)))
+  (set-endkey-doc-id! [clj-query doc-id] (.setEndkeyDocID q (name doc-id)))
+  (set-group! [clj-query b] (.setGroup q b))
+  (set-group-level! [clj-query group-level] (.setGroupLevel q group-level))
+  (set-inclusive-end! [clj-query b] (.setInclusiveEnd q b))
+  (set-key! [clj-query x] (.setKey q ^String (cb-util/write-json x)))
+  (set-limit! [clj-query limit] (.setLimit q limit))
+  (set-range! [clj-query coll]
     (.setRange q
                ^String (cb-util/write-json (first coll))
                ^String (cb-util/write-json (second coll))))
-  (set-range-start [clj-query x]
+  (set-range-start! [clj-query x]
     (.setRangeStart q ^String (cb-util/write-json x)))
-  (set-range-end [clj-query x]
+  (set-range-end! [clj-query x]
     (.setRangeEnd q ^String (cb-util/write-json x)))
-  (set-reduce [clj-query b] (.setReduce q b))
-  (set-skip [clj-query docs-to-skip] (.setSkip q docs-to-skip))
-  (set-stale [clj-query stl] (.setStale q (stale stl)))
-  (set-on-error [clj-query oe] (.setOnError q (on-error oe)))
+  (set-reduce! [clj-query b] (.setReduce q b))
+  (set-skip! [clj-query docs-to-skip] (.setSkip q docs-to-skip))
+  (set-stale! [clj-query stl] (.setStale q (stale stl)))
+  (set-on-error! [clj-query oe] (.setOnError q (on-error oe)))
   (assoc! [clj-query m]
     (doseq [kv m]
       (dispatch clj-query kv)))
@@ -145,22 +145,22 @@
   ^{:doc "A key/value conversion map of query options
   to corresponding set functions."}
   method-map
-  {:desc set-desc
-   :startkey-doc-id set-startkey-doc-id
-   :endkey-doc-id set-endkey-doc-id
-   :group set-group
-   :group-level set-group-level
-   :include-docs set-include-docs
-   :inclusive-end set-inclusive-end
-   :key set-key
-   :limit set-limit
-   :range set-range
-   :range-start set-range-start
-   :range-end set-range-end
-   :reduce set-reduce
-   :skip set-skip
-   :stale set-stale
-   :on-error set-on-error})
+  {:desc set-desc!
+   :startkey-doc-id set-startkey-doc-id!
+   :endkey-doc-id set-endkey-doc-id!
+   :group set-group!
+   :group-level set-group-level!
+   :include-docs set-include-docs!
+   :inclusive-end set-inclusive-end!
+   :key set-key!
+   :limit set-limit!
+   :range set-range!
+   :range-start set-range-start!
+   :range-end set-range-end!
+   :reduce set-reduce!
+   :skip set-skip!
+   :stale set-stale!
+   :on-error set-on-error!})
 
 (defn- dispatch
   [query kv]
