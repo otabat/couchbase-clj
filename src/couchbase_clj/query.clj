@@ -1,7 +1,7 @@
 (ns couchbase-clj.query
   (:import [java.lang UnsupportedOperationException]
            [com.couchbase.client.protocol.views Query Stale OnError])
-  (:refer-clojure :exclude [assoc assoc! get-method str])
+  (:refer-clojure :exclude [assoc! get-method str])
   (:require [couchbase-clj.config :as cb-config]
             [couchbase-clj.util :as cb-util]))
 
@@ -97,8 +97,6 @@
     :continue or other values (default value)
     Continue processing the query even if errors occur, populating the errors
     response at the end of the query response.")
-  (assoc [clj-query m]
-    "Return a updated copy of the query.")
   (assoc! [clj-query m]
     "Update the query, after created by create-query or defquery.
 
@@ -138,8 +136,6 @@
   (set-skip [clj-query docs-to-skip] (.setSkip q docs-to-skip))
   (set-stale [clj-query stl] (.setStale q (stale stl)))
   (set-on-error [clj-query oe] (.setOnError q (on-error oe)))
-  (assoc [clj-query m]
-    (create-query (merge opts m)))
   (assoc! [clj-query m]
     (doseq [kv m]
       (dispatch clj-query kv)))

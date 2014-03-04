@@ -159,13 +159,6 @@
       (is (= (cb-query/str q2) "?on_error=continue"))
       (is (= (cb-query/str q3) "?on_error=continue")))))
 
-(deftest assoc-test
-  (testing "Gettina an updated copy of the query."
-    (let [q1 (cb-query/create-query {:limit 1})
-          q2 (cb-query/assoc q1 {:limit 100
-                                 :skip 10})]
-      (is (= (cb-query/str q2) "?limit=100&skip=10")))))
-
 (deftest assoc!-test
   (testing "Getting an updated query."
     (let [q1 (cb-query/create-query {:limit 1})]
