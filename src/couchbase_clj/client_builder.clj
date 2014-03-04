@@ -36,12 +36,12 @@
 (defprotocol ICouchbaseCljClientBuilder
   (get-factory-builder [clj-client-builder]
     "Get the CouchbaseConnectionFactoryBuilder object.")
-  (set-auth-descriptor [clj-client-builder dsc]
+  (set-auth-descriptor! [clj-client-builder dsc]
     "Set the auth descriptor to enable authentication on new connections.
   dsc is an AuthDescriptor object.")
-  (set-daemon [clj-client-builder b]
+  (set-daemon! [clj-client-builder b]
     "If true, the IO thread should be a daemon thread.")
-  (set-failure-mode [clj-client-builder k]
+  (set-failure-mode! [clj-client-builder k]
     "Set the failure mode as a keyword value.
   Default values is :redistribute.
   Other values are :retry, :cancel.
@@ -52,36 +52,36 @@
   couchbase node that will be back quickly, and your app is written to not
   wait very long for async command completion.
   In cancel mode, all operations are automatically cancelled")
-  (set-hash-alg [clj-client-builder k]
+  (set-hash-alg! [clj-client-builder k]
     "Set the hashing algorithm as a keyword value.
   Default value is :native-hash.
   Other values are :ketama-hash, :crc-hash,
   :fnv1-64-hash, :fnv1a-64-hash, :fnv1-32-hash, :fnv1a-32-hash.")
-  (set-max-reconnect-delay [clj-client-builder delay]
+  (set-max-reconnect-delay! [clj-client-builder delay]
     "Set maximum number of milliseconds to wait between reconnect attempts.
   Default value is 30000.
   You can set this value lower when there is intermittent
   and frequent connection failures.")
-  ;(set-min-reconnect-interval [clj-client-builder interval]
+  ;(set-min-reconnect-interval! [clj-client-builder interval]
   ;  "Set the default minimum reconnect interval in millisecs.
   ;Default values is 1100
   ;This value means that if a reconnect is needed,
   ;it won't try to reconnect more frequently than default value.
   ;The internal connections take up to 500ms per request.
   ;You can set this to higher to try reconnecting less frequently.")
-  (set-obs-poll-interval [clj-client-builder interval]
+  (set-obs-poll-interval! [clj-client-builder interval]
     "Set the polling interval for Observe operations.
   Default value is 100.
   Set this higher or lower depending on whether the polling needs
   to happen less or more frequently depending on the tolerance limits
   for the Observe operation as compared to other operations.")
-  (set-obs-poll-max [clj-client-builder poll]
+  (set-obs-poll-max! [clj-client-builder poll]
     "Set the maximum times to poll the master and replica(s) to meet
   the desired durability requirements.
   Default value is 400.
   You could set this value higher if the Observe operations do not complete
   after the normal polling.")
-  (set-op-queue-max-block-time [clj-client-builder time]
+  (set-op-queue-max-block-time! [clj-client-builder time]
     "Set the maximum time to block waiting for op queue operations to complete,
   in milliseconds.
   Default value is 10000.
@@ -90,7 +90,7 @@
   more undesirable than failing the request.
   However, this value could be lowered for operations
   not to block for this time.")
-  (set-op-timeout [clj-client-builder timeout]
+  (set-op-timeout! [clj-client-builder timeout]
     "Set the time for an operation to Timeout.
   Default values is 2500.
   You can set this value higher when there is heavy network traffic
@@ -98,84 +98,84 @@
   This is used as a default timeout value for sync and async operations.
   For async operations, it is internally used as a default timeout value to get
   the result from Future objects.")
-  (set-read-buffer-size [clj-client-builder size]
+  (set-read-buffer-size! [clj-client-builder size]
     "Set the read buffer size.
   Default value is 16384.")
-  (set-should-optimize [clj-client-builder b]
+  (set-should-optimize! [clj-client-builder b]
     "Set the optimize behavior for the network.
   Default values is false.
   You can set this value to be true if the performance should be optimized
   for the network as in cases where there are some known issues with the network
   that may be causing adverse effects on applications.
   Currently it is ignored.")
-  (set-timeout-exception-threshold [clj-client-builder timeout]
+  (set-timeout-exception-threshold! [clj-client-builder timeout]
     "Set the maximum timeout exception threshold.
   Default threshold is 998.
   Minimum threshold is 2 and is calculated by timeout - 2.
   For this reason, specify timeout equal to theshold + 2,
   ex: (set-timeout-exception-threshold client_builder_object 1000)")
-  (set-transcoder [clj-client-builder transcoder]
+  (set-transcoder! [clj-client-builder transcoder]
     "Set the default transcoder.
   transcoder is a transcoder object.
   Default transcoder is SerializingTranscoder.")
-  (set-use-nagle-algorithm [clj-client-builder b]
+  (set-use-nagle-algorithm! [clj-client-builder b]
     "Set to true if you'd like to enable the Nagle algorithm."))
 
 (deftype CouchbaseCljClientBuilder [^CouchbaseConnectionFactoryBuilder cfb]
   ICouchbaseCljClientBuilder
   (get-factory-builder [clj-client-builder] cfb)
-  (set-auth-descriptor [clj-client-builder dsc]
+  (set-auth-descriptor! [clj-client-builder dsc]
     (.setAuthDescriptor cfb dsc))
-  (set-daemon [clj-client-builder b]
+  (set-daemon! [clj-client-builder b]
     (.setDaemon cfb b))
-  (set-failure-mode [clj-client-builder k]
+  (set-failure-mode! [clj-client-builder k]
     (.setFailureMode cfb (failure-mode k)))
-  (set-hash-alg [clj-client-builder k]
+  (set-hash-alg! [clj-client-builder k]
     (.setHashAlg cfb (hash-alg k)))
-  (set-max-reconnect-delay [clj-client-builder delay]
+  (set-max-reconnect-delay! [clj-client-builder delay]
     (.setMaxReconnectDelay cfb delay))
-  ;(set-min-reconnect-interval [clj-client-builder interval]
+  ;(set-min-reconnect-interval! [clj-client-builder interval]
   ;  (.setReconnectThresholdTime cfb interval TimeUnit/MILLISECONDS))
-  (set-obs-poll-interval [clj-client-builder interval]
+  (set-obs-poll-interval! [clj-client-builder interval]
     (.setObsPollInterval cfb interval))
-  (set-obs-poll-max [clj-client-builder poll]
+  (set-obs-poll-max! [clj-client-builder poll]
     (.setObsPollMax cfb poll))
-  (set-op-queue-max-block-time [clj-client-builder time]
+  (set-op-queue-max-block-time! [clj-client-builder time]
     (.setOpQueueMaxBlockTime cfb time))
-  (set-op-timeout [clj-client-builder timeout]
+  (set-op-timeout! [clj-client-builder timeout]
     (.setOpTimeout cfb timeout))
-  (set-read-buffer-size [clj-client-builder size]
+  (set-read-buffer-size! [clj-client-builder size]
     (.setReadBufferSize cfb size))
-  (set-should-optimize [clj-client-builder b]
+  (set-should-optimize! [clj-client-builder b]
     (.setShouldOptimize cfb b))
-  (set-timeout-exception-threshold [clj-client-builder timeout]
+  (set-timeout-exception-threshold! [clj-client-builder timeout]
     (.setTimeoutExceptionThreshold cfb timeout))
-  (set-transcoder [clj-client-builder transcoder]
+  (set-transcoder! [clj-client-builder transcoder]
     (.setTranscoder cfb transcoder))
-  (set-use-nagle-algorithm [clj-client-builder b]
+  (set-use-nagle-algorithm! [clj-client-builder b]
     (.setUseNagleAlgorithm cfb b)))
 
 (def
   ^{:doc "A key/value conversion map of client options
   to corresponding set functions."}
   method-map
-  {:auth-descriptor set-auth-descriptor
-   :daemon set-daemon
-   :failure-mode set-failure-mode
-   :hash-alg set-hash-alg
+  {:auth-descriptor set-auth-descriptor!
+   :daemon set-daemon!
+   :failure-mode set-failure-mode!
+   :hash-alg set-hash-alg!
    ;; TODO: Observers disabled for now
-   ;:initial-observers set-initial-observers
-   :max-reconnect-delay set-max-reconnect-delay
-   ;:min-reconnect-interval set-min-reconnect-interval
-   :obs-poll-interval set-obs-poll-interval
-   :obs-poll-max set-obs-poll-max
-   :op-queue-max-block-time set-op-queue-max-block-time
-   :op-timeout set-op-timeout
-   :read-buffer-size set-read-buffer-size
-   :should-optimize set-should-optimize
-   :timeout-exception-threshold set-timeout-exception-threshold
-   :transcoder set-transcoder
-   :use-nagle-algorithm set-use-nagle-algorithm})
+   ;:initial-observers set-initial-observers!
+   :max-reconnect-delay set-max-reconnect-delay!
+   ;:min-reconnect-interval set-min-reconnect-interval!
+   :obs-poll-interval set-obs-poll-interval!
+   :obs-poll-max set-obs-poll-max!
+   :op-queue-max-block-time set-op-queue-max-block-time!
+   :op-timeout set-op-timeout!
+   :read-buffer-size set-read-buffer-size!
+   :should-optimize set-should-optimize!
+   :timeout-exception-threshold set-timeout-exception-threshold!
+   :transcoder set-transcoder!
+   :use-nagle-algorithm set-use-nagle-algorithm!})
 
 (defn- dispatch
   [builder kv]
@@ -197,7 +197,7 @@
   (client-client-builder {:hash-alg :native-hash :failure-mode :redistribute})
 
   After creating, you can set options.
-  ex: (set-op-timeout clj-client-builder timeout)
+  ex: (set-op-timeout! clj-client-builder timeout)
 
   All options can be looked at method-map Var.
   You can get the internal CouchbaseConnectionFactoryBuilder
