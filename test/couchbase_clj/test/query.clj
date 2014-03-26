@@ -4,6 +4,14 @@
   (:require [clojure.string :as clojure-string]
             [couchbase-clj.query :as cb-query]))
 
+(defn- parse-query-string
+  [query-string]
+  (let [s (clojure-string/replace query-string #"^\?" "")]
+    (when-not (empty? s)
+      (->> (clojure-string/split s #"&")
+           (map #(clojure-string/split % #"="))
+           (reduce (fn [acc [k v]] (assoc acc (keyword k) v)) {})))))
+
 (deftest get-query-test
   (testing "Get the Query object"
     (let [q1 (cb-query/create-query {})]
@@ -240,20 +248,14 @@
     (let [q1 (cb-query/create-query {:limit 1})]
       (cb-query/assoc! q1 {:limit 100
                            :group-level 1})
-      (is (= (cb-query/str q1) "?limit=100&group_level=1")))))
+      (is (= (-> (cb-query/str q1) parse-query-string)
+             {:limit "100"
+              :group_level "1"})))))
 
 (deftest str-tes
   (testing "String conversion of a query."
     (let [q1 (cb-query/create-query {:limit 1})]
       (is (= (cb-query/str q1) "?limit=1")))))
-
-(defn- parse-query-string
-  [query-string]
-  (let [s (clojure-string/replace query-string #"^\?" "")]
-    (when-not (empty? s)
-      (->> (clojure-string/split s #"&")
-           (map #(clojure-string/split % #"="))
-           (reduce (fn [acc [k v]] (assoc acc (keyword k) v)) {})))))
 
 (deftest create-query-test
   (testing "Creation of a query."
