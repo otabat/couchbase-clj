@@ -1,6 +1,6 @@
 (ns couchbase-clj.client-builder
   (:import [java.net URI]
-           [java.util Collection]
+           [java.util Collection ArrayList]
            [java.util.concurrent TimeUnit]
            [net.spy.memcached FailureMode DefaultHashAlgorithm]
            [com.couchbase.client CouchbaseConnectionFactoryBuilder])
@@ -249,9 +249,10 @@
   (let [bkt (or bucket @cb-config/default-bucket)
         user (or username @cb-config/default-username)
         pass (or password @cb-config/default-password)
-        us (if uris
-             (map str->uri uris)
-             (map str->uri @cb-config/default-uris))
+        ^Collection coll-uris  (if uris
+                                 (map str->uri uris)
+                                 (map str->uri @cb-config/default-uris))
+        list-uris (ArrayList. coll-uris)
         failure-mode (or failure-mode :redistribute)
         hash-alg (or hash-alg :native-hash)
         opts (-> (dissoc opts :bucket :username :password :uris)
@@ -259,7 +260,7 @@
                         :hash-alg hash-alg))
         builder (create-client-builder opts)]
     (create-factory {:factory-builder (get-factory-builder builder)
-                     :uris us
+                     :uris list-uris
                      :bucket bkt
                      :username user
                      :password pass})))
