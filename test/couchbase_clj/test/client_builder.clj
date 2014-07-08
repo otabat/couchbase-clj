@@ -1,5 +1,6 @@
 (ns couchbase-clj.test.client-builder
   (:import [java.net URI]
+           [java.util ArrayList]
            [net.spy.memcached FailureMode DefaultHashAlgorithm]
            [net.spy.memcached.auth AuthDescriptor PlainCallbackHandler]
            [net.spy.memcached.transcoders LongTranscoder SerializingTranscoder]
@@ -24,6 +25,10 @@
 (def base-opts-with-hash-alg-and-failure-mode
   (merge base-opts {:hash-alg :native-hash
                     :failure-mode :redistribute}))
+
+(def base-opts-with-hash-alg-failure-mode-array-list-uris
+  (merge base-opts-with-hash-alg-and-failure-mode
+         {:uris (ArrayList. (:uris base-opts-with-hash-alg-and-failure-mode))}))
 
 (deftest str->uri-test
   (testing "Convert string to URI object."
@@ -216,7 +221,7 @@
                {:hash-alg :native-hash
                 :failure-mode :redistribute}))
           cf (cb-client-builder/create-factory
-              (merge base-opts-with-hash-alg-and-failure-mode
+              (merge base-opts-with-hash-alg-failure-mode-array-list-uris
                      {:factory-builder fb}))]
       (is (instance? CouchbaseConnectionFactory cf)))))
 

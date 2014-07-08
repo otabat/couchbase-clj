@@ -12,7 +12,9 @@
 (def host "127.0.0.1")
 (def admin-port 8091)
 (def op-port 11210)
-(def uris ["http://127.0.0.1:8091/pools"])
+;(def uris ["http://127.0.0.1:8091/pools"])
+(def uris ["http://192.168.1.2:8091/pools"
+           "http://192.168.1.9:8091/pools"])
 (def bucket-username "")
 (def bucket-password "")
 (def design-doc "dev_doc")
