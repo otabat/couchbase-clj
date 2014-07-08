@@ -15,7 +15,7 @@ Supports Clojure version >= 1.4.0.
 ---
 Add the following dependency to your Leiningen `project.clj` file:
 
-    [couchbase-clj "0.1.3"]
+    [couchbase-clj "0.2.0"]
 
 ## Documentation
 ---
@@ -500,6 +500,12 @@ This is typically used to get a large data lazily.
 ```
 
 ## Change Log
+* Release 0.2.0 on 2014-07-09
+  * Fixes #6 to properly handle multiple nodes.
+  * Renamed client-builder APIs which mutate.
+  * Renamed query APIs which mutate.
+  * Deleted assoc for cleaner API.
+  * Added Clojure 1.6 dependency.
 * Release 0.1.3 on 2014-02-11
   * Updated couchbase-java-client version to 1.3.2.
 * Release 0.1.2 on 2013-04-07
