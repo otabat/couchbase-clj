@@ -71,7 +71,7 @@ To create a client connection, specify a bucket name and vector of server URIs.
 ;=> false
 
 ;; Add a JSON string value.
-(c/add client :key 1 (u/json-str {:a 1}))
+(c/add client :key 1 (u/write-json {:a 1}))
 ;=> true
 
 ;; Same as above, but the value can be a Clojure collection.
